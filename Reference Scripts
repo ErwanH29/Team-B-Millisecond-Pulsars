@@ -1,15 +1,22 @@
 Galactic Modelling Codes
+
 Tutorial: https://github.com/amusecode/amuse/tree/master/examples/tutorial
 - CDG_gd_Galaxy_imf
 - Galaxy Model
+
 Examples Galaxia: https://github.com/amusecode/amuse/tree/master/examples/examples_galaxia
 - Rotation curve Milky Way
 - User manual galaxia
+
 Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
 - Galactic center
 - Galactic center in code
+
 Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
 - Gravity potential
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Stellar Evolution/Binary Codes
 In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
@@ -26,6 +33,10 @@ Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
 - Binary evolution example
 - Multiple stellar code
 - Star to SPH
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Gravity Codes
 In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
@@ -44,6 +55,10 @@ Syllabus: https://github.com/amusecode/amuse/tree/master/examples/syllabus
 Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
 - Sun and M67 in the Galaxy
 - Gravity potential
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 Other (Applications: https://github.com/amusecode/amuse/tree/master/examples/applications)
 - Asterisk movie example
