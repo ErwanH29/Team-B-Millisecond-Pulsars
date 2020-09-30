@@ -8,6 +8,8 @@ Examples Galaxia: https://github.com/amusecode/amuse/tree/master/examples/exampl
 Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
 - Galactic center
 - Galactic center in code
+Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
+- Gravity potential
 
 Stellar Evolution/Binary Codes
 In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
@@ -20,6 +22,10 @@ Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
 - Evolve binary
 Syllabus: https://github.com/amusecode/amuse/tree/master/examples/syllabus
 - Binary evolution example
+Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
+- Binary evolution example
+- Multiple stellar code
+- Star to SPH
 
 Gravity Codes
 In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
@@ -35,6 +41,9 @@ Syllabus: https://github.com/amusecode/amuse/tree/master/examples/syllabus
 - Gravity potential
 - Three body bridge
 - Three body bridge hierarchical
+Textbook: https://github.com/amusecode/amuse/tree/master/examples/textbook
+- Sun and M67 in the Galaxy
+- Gravity potential
 
 Other (Applications: https://github.com/amusecode/amuse/tree/master/examples/applications)
 - Asterisk movie example
