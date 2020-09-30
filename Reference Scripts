@@ -1,0 +1,40 @@
+Galactic Modelling Codes
+Tutorial: https://github.com/amusecode/amuse/tree/master/examples/tutorial
+- CDG_gd_Galaxy_imf
+- Galaxy Model
+Examples Galaxia: https://github.com/amusecode/amuse/tree/master/examples/examples_galaxia
+- Rotation curve Milky Way
+- User manual galaxia
+Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
+- Galactic center
+- Galactic center in code
+
+Stellar Evolution/Binary Codes
+In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
+- Running Stellar Evolution
+Publications: https://github.com/amusecode/amuse/tree/master/examples/publications/2013MNRAS.429..895P
+- Binary
+- Bin Planet
+Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
+- Binary population synthesis
+- Evolve binary
+Syllabus: https://github.com/amusecode/amuse/tree/master/examples/syllabus
+- Binary evolution example
+
+Gravity Codes
+In class tutorials: https://github.com/spzwart/AMUSE-Tutorial
+- Nemesis and the Sun
+- Bridged Nbody with Galaxy
+- Running an Nbody code
+Examples Galaxia: https://github.com/amusecode/amuse/tree/master/examples/examples_galaxia
+- Orbit one star
+Simple: https://github.com/amusecode/amuse/tree/master/examples/simple
+- Evolve orbit in potential
+- Orbit in potential
+Syllabus: https://github.com/amusecode/amuse/tree/master/examples/syllabus
+- Gravity potential
+- Three body bridge
+- Three body bridge hierarchical
+
+Other (Applications: https://github.com/amusecode/amuse/tree/master/examples/applications)
+- Asterisk movie example
