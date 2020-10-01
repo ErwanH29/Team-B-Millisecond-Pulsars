@@ -94,10 +94,4 @@ pot_LMC = LMC_galaxy.get_lmcpotential_at_point(LMC, x, y, z, trans)
 
 #Just for checking plot functionality, hehehe
 plot(x, pot_MW, pot_LMC)
-pt.show()
-
-
-                   
-                
-                
-        
+pt.show()       
