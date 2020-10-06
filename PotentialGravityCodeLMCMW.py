@@ -7,6 +7,9 @@ import astropy.coordinates as coord
 from astropy.coordinates import SkyCoord
 from amuse.ext.galactic_potentials import MWpotentialBovy2015, MiyamotoNagai_profile, NFW_profile, Plummer_profile
 
+def potentialBH(m,x,y,z):
+    return (-constants.G * mass_bh)/(x**2+y**2+z**2)**0.5
+
 #Initialising LMC
 cLMC = SkyCoord(ra=79.88*u.degree, dec=-69.59*u.degree, distance=49.97*u.kpc) #Data of LMC distance taken from Pieterzxynski et al 2013 in the Sun's reference frame
 gcLMC = cLMC.transform_to(coord.Galactocentric)
@@ -32,6 +35,7 @@ eps = 0.0 #Epsilon is the softening parameter and used to remove singularities -
 disk_mass = 6.8e+10 | units.MSun
 disk_size = 3 | units.kpc #Milky Way's scale radius
 disk_height = 280 | units.parsec #Milky Way's scale height
+mass_bh = 4*10**6 | units.MSun #Milky Way's central black hole mass
 MW = MWpotentialBovy2015()
 pot_MW = MW.get_potential_at_point(eps, xMW, yMW, zMW) 
 
@@ -48,10 +52,10 @@ LMCPlummer = LMCPlummerProfile.get_potential_at_point(eps, x, y, z)
 LMCNFW = LMCNFWProfile.get_potential_at_point(eps, x, y, z)
 CombinedLMC = (LMCNFW + LMCPlummer)
 pot_MW = MW.get_potential_at_point(eps, xMW, yMW, zMW)
-
-r = (x**2+y**2+z**2)**0.5
+MWPotential2014wBH= pot_MW + potentialBH(mass_bh,xMW,yMW,zMW)
 
 #Getting the circular velocity as a function of distance for the different potentials
+r = (x**2+y**2+z**2)**0.5
 vcircMW = MW.circular_velocity(r).in_(units.km/units.s)
 vcircLMC = LMCPlummerProfile .circular_velocity(r).in_(units.km/units.s)+LMCNFWProfile.circular_velocity(r).in_(units.km/units.s)
 
@@ -80,8 +84,8 @@ plt.show()
 plt.title(r"LMC Circular Velocity ($v_{circ}$) vs Distance ($r$)")
 plt.xlabel(r"Distance ($r$)")
 plt.ylabel(r"Velocity $v_{circ}$")
-plot(x, vcircMW, label = 'LMC Potential')
-plt.xlim(0,50)
+plot(x, vcircLMC, label = 'LMC Potential')
+plt.xlim(0,25)
 plt.legend()
 plt.savefig("LMC Circular Velocity", dpi=300)
 plt.show()  
@@ -106,4 +110,11 @@ plot(x, LMCPlummer, label = 'Plummer Profile (LMC)')
 plt.xlim(0,30)
 plt.legend()
 plt.savefig("LMC Plummer Potential", dpi=300)
-plt.show()   
+plt.show()  
+
+plt.title("MW Black Hole Potential")
+plot(x, potentialBH(mass_bh,xMW,yMW,zMW), label = 'Black Hole Potential')
+plt.xlim(0,30)
+plt.legend()
+plt.savefig("BHPotential", dpi=300)
+plt.show()  
