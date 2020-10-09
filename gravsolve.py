@@ -6,19 +6,19 @@ from amuse.lab import units, Particles, nbody_system
 from amuse.couple import bridge
 from amuse.community.hermite.interface import Hermite
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
-import LMC_init as LMC
+from galpot_init import LMC_pot
 
 #Initialize Bovy potential for Milky Way
 MWG = MWpotentialBovy2015()
 
 #Initialize LMC potential
-LMC = LMC.LMC_pot()
+LMC = LMC_pot()
 
 #initialize star to be ejected
 star = Particles(1)
 star.mass = 9 | units.MSun
 star.position = (-0.88,-41,-27) * (1 | units.kpc)
-star.velocity = (0,-1.0,0) * (100 | units.kms)
+star.velocity = (0,-1.0,0) * (200 | units.kms)
 converter = nbody_system.nbody_to_si(star.mass.sum(),
                                      star.position.length())
 
