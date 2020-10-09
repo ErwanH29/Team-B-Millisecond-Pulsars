@@ -19,6 +19,20 @@ def conv_coord(right_ascension, declination, dist):
     d_co = (x_co, y_co, z_co) | units.kpc
     return d_co
 
+def conv_coordPulsars(data): #I added a converting coordinate for Pulsars from heliocentric to galactocentric
+    coordinates = SkyCoord(x=data[:,1], 
+                           y=data[:,2], 
+                           z=data[:,0], 
+                           unit='kpc', 
+                           representation_type='cartesian')
+    coordinates_coMSP = coordinates.transform_to(coord.Galactocentric)
+    x_coMSP = np.array(coordinates_coMSP.cartesian.x)
+    y_coMSP = np.array(coordinates_coMSP.cartesian.y)
+    z_coMSP = np.array(coordinates_coMSP.cartesian.z)
+    MSPCoords = np.stack((x_coMSP, y_coMSP, z_coMSP), axis=1) | units.kpc
+
+    return MSPCoords
+
 def prop_motion(pm_right_ascension, pm_declination, rad_velocity):
     proper_motion = SkyCoord(pm_ra_cosdec=pm_right_ascension*u.mas/u.yr, 
                              pm_dec=pm_declination*u.mas/u.yr, 
