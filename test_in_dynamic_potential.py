@@ -5,8 +5,8 @@ from amuse.lab import units, Particles, nbody_system
 from amuse.couple import bridge
 from amuse.community.hermite.interface import Hermite
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
-from galpot_init_with_parameter import LMC_pot
-from galpot_init_with_parameter import SMC_pot
+from galpot_init import LMC_pot
+from galpot_init import SMC_pot
 
 # Initialize Bovy potential for Milky Way
 MWG = MWpotentialBovy2015()
