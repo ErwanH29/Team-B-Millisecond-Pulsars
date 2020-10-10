@@ -4,15 +4,15 @@ from conv_coord import conv_coord, prop_motion
 from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile
 
 class LMC_pot(object):
-    def __init__(self, ra, dec, dis, gc = False):
-          
+    def __init__(self, ra, dec, dis, gc = False): # gc: galactic cartesian; when gc = False: (ra, dec, dis) and when gc = True: (x, y, z)
+           
         self.plum = Plummer_profile(2e10|units.MSun, 0.73|units.kpc)
         self.nfw = NFW_profile(8.18e6|units.MSun/units.kpc**3, #This value was taken from SIffert et al. 2011
                                2.6|units.kpc)
         self.ra = ra
         self.dec = dec
         self.dis = dis
-        if gc == Ture:
+        if gc == True: 
             self.d = (self.ra, self.dec, self.dis) | units.kpc
         else:
             self.d = conv_coord(self.ra, self.dec, self.dis)
