@@ -9,12 +9,14 @@
   all the more intricate.
 - We still need to find the values of the Plummer profile and NFW profile for the SMC
 
-**galpot_init_with_parameters.py**
-
 **gravsolve.py**
 - This script takes a pre-defined star and shoots it based on initial velocities and position to track it's motion when succumbed to the MW and LMC potential
 - We still need to add the SMC potential as well as the relative motion of the SMC and LMC w.r.t the MW
 
 **motion_of_MCs.py**
+- This script fixes the Milky Way and treats LMC and SMC as particles with their own masses. Then track their trajectory under the influence of the MW potential.
+- We still need to consider the interaction of LMC and SMC.
 
 **test_in_dynamic_potential.py**
+- This script describes the possible trajectory of a test star given initial conditions moving in the dynamic MW-LMC-SMC system potential. 
+- We still need to simplify the code and reduce the occurrence of MPI_ERR_SPAWN.
