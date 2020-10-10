@@ -12,8 +12,8 @@ from galpot_init import SMC_pot
 MWG = MWpotentialBovy2015()
 
 # Initialize LMC & SMC potential
-LMC = LMC_pot()
-SMC = SMC_pot()
+LMC = LMC_pot(79.88, -69.59, 49.97)
+SMC = SMC_pot(13.16, -72.8, 60.6)
 
 # MCs system (as particle)
 MCs = Particles(2)
