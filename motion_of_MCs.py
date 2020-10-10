@@ -45,8 +45,8 @@ dt = 0.5  # Define time step
 # sl_gravity.add_system(Lmc_gravity, (Smc_gravity,))
 
 gravity = bridge.Bridge()
-gravity.add_system(Smc_gravity, (MWG, LMC,))
-gravity.add_system(Lmc_gravity, (MWG, SMC,))
+gravity.add_system(Smc_gravity, (MWG,))
+gravity.add_system(Lmc_gravity, (MWG,))
 gravity.timestep = dt | units.Myr
 
 times = np.arange(0., 100., dt) | units.Myr
