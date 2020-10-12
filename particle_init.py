@@ -32,17 +32,16 @@ class neut_initialiser(object):
     
     neut_InitialConditions = np.stack((x, y, z, velList, 
                                        massList(N)), axis=1)
-    
-    def neut_stars(N_neut):
-        return neuts
+    #def neut_stars(N_neut):
+     #   return neuts
 
-    def neut_path_init(N_neut):
-        for i in range(N_neut):
-            x_neut = [] | units.kpc
-            y_neut = [] | units.kpc
-            z_neut = [] | units.kpc
-            #X_neut[i] = (x_neut, y_neut, z_neut)
-        return 
+    #def neut_path_init(N_neut):
+     #   for i in range(N_neut):
+      #      x_neut = [] | units.kpc
+       #     y_neut = [] | units.kpc
+        #    z_neut = [] | units.kpc
+         #   #X_neut[i] = (x_neut, y_neut, z_neut)
+        #return 
 
 #neuts = neut_path_init(10)
 ##### GALAXY TRACERS #####
@@ -65,8 +64,8 @@ def gal_path_init():
      x_lmc = [] | units.kpc
      y_lmc = [] | units.kpc
      z_lmc = [] | units.kpc
-    
+
      x_smc = [] | units.kpc
      y_smc = [] | units.kpc
      z_smc = [] | units.kpc
-     return x_lmc, y_lmc, z_lmc, x_smc, y_smc, z_smc
+     return x_lmc, y_lmc, z_lmc, x_smc, y_smc, z_smc 
