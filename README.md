@@ -17,6 +17,10 @@
 - This script fixes the Milky Way and treats LMC and SMC as particles with their own masses. Then track their trajectory under the influence of the MW potential.
 - We still need to consider the interaction of LMC and SMC.
 
+**particle_init.py**
+- This script initialises the N amount of milisecond pulsars we aim to shoot. It has the initial mass, velocity and coordinates of the stars based on various models.
+- It also traces the path of the LMC and SMC such that we can track them as their positions evolve over time.
+
 **test_in_dynamic_potential.py**
 - This script describes the possible trajectory of a test star given initial conditions moving in the dynamic MW-LMC-SMC system potential. 
 - We still need to simplify the code and reduce the occurrence of MPI_ERR_SPAWN.
