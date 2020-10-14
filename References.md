@@ -1,4 +1,4 @@
-#References of data and functions used in the report
+## References of data and functions used in the report
 
 * Positional and velocity data are taken from *SIMBAD* for both the LMC and SMC
 * The Pulsar catalogue is taken from the *Australia Telescope National Facility* catalogue
