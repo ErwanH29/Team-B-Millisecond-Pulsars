@@ -47,11 +47,11 @@ def neut_gal_evol():
     
     for time in times:
         
-        gravity_1.evolve_model(time)
-        gravity_2.evolve_model(time)
-        
         LMC.d_update(gals[0].x, gals[0].y, gals[0].z)
         SMC.d_update(gals[1].x, gals[1].y, gals[1].z)
+        
+        gravity_1.evolve_model(time)
+        gravity_2.evolve_model(time)
         
         ch_g2l_1.copy()
         
