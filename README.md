@@ -4,6 +4,9 @@
 - This script takes the positional and velocity coordinates of any object and rotates it into the galactocentric frame
 - We still need to figure out how to manipulate the velocity coordinates into the galactocentric frame - issues with unit manipulations
 
+**evol.py**
+- This script traces the evolution of the neutron stars over time as it moves across the galactic systems and gets shot out at some arbitrary velocity.
+
 **galpot_init.py**
 - This script defines the SMC and LMC class potentials. Potentials based on different papers and following various models to make the gravitational field felt by pulsars
   all the more intricate.
@@ -22,5 +25,4 @@
 - It also traces the path of the LMC and SMC such that we can track them as their positions evolve over time.
 
 **test_in_dynamic_potential.py**
-- This script describes the possible trajectory of a test star given initial conditions moving in the dynamic MW-LMC-SMC system potential. 
-- We still need to simplify the code and reduce the occurrence of MPI_ERR_SPAWN.
+- This script describes the possible trajectory of a test star given initial conditions moving in the dynamic MW-LMC-SMC system potential.
