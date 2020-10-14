@@ -1,5 +1,5 @@
 import numpy as np
-from particle_init import gal_tracer, gal_path_init, neut_stars, neut_path_init
+from particle_init_test import gal_tracer, gal_path_init, neut_stars, neut_path_init
 from amuse.lab import nbody_system, units
 from amuse.couple import bridge
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
