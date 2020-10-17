@@ -13,9 +13,12 @@ class neut_initialiser(object):
     def velocityList(vrange, w, N):
         scalex = np.random.choice([-1,1], N) ; scaley = np.random.choice([-1,1], N)
         scalez = np.random.choice([-1,1], N)
-        vx = random.choices(vrange, weights=w, k = N)*scalex #| units.km/units.s
-        vy = random.choices(vrange, weights=w, k = N)*scaley #| units.km/units.s
-        vz = random.choices(vrange, weights=w, k = N)*scalez #| units.km/units.s
+        vx = random.choices(vrange, weights=w, k = N)*scalex * (1 | units.kms) + \
+        (47) * (1 | units.kms) 
+        vy = random.choices(vrange, weights=w, k = N)*scaley * (1 | units.kms) + \
+        (242) * (1 | units.kms) 
+        vz = random.choices(vrange, weights=w, k = N)*scalez * (1 | units.kms) + \
+        (225) * (1 | units.kms) 
         return    vx, vy, vz
 
     def massList(N):
