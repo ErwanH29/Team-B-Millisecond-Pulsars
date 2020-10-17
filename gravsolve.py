@@ -5,10 +5,10 @@ from evol import neut_gal_evol
 
 X_gal, X_neut = neut_gal_evol()
 
-pyplot.title("Evolution of the System")
-plot(X_gal[0], X_gal[1], lw=1, label = 'lmc')
-plot(X_gal[3], X_gal[4], lw=1, label = 'smc')
-plot(X_neut[0], X_neut[1], lw=1, label = 'neut')
+pyplot.title("Evolution of the System in the \n Milky Way's Frame of Reference")
+plot(X_gal[0], X_gal[1], lw=1, label = 'LMC')
+plot(X_gal[3], X_gal[4], lw=1, label = 'SMC')
+plot(X_neut[0], X_neut[1], lw=1, label = 'Pulsar')
 pyplot.xlabel(r"$x$ coordinate (kpc)")
 pyplot.ylabel(r"$y$ coordinate (kpc)")
 pyplot.legend()
