@@ -11,8 +11,12 @@ class neut_initialiser(object):
         return np.sqrt(2/np.pi)*(meanV**2/sigmaV**3)*np.exp(-vel**2/(2*sigmaV**2))
 
     def velocityList(vrange, w, N):
-        return random.choices(vrange, weights=w, 
-                              k = N) #| units.km/units.s   
+        scalex = np.random.choice([-1,1], N) ; scaley = np.random.choice([-1,1], N)
+        scalez = np.random.choice([-1,1], N)
+        vx = random.choices(vrange, weights=w, k = N)*scalex #| units.km/units.s
+        vy = random.choices(vrange, weights=w, k = N)*scaley #| units.km/units.s
+        vz = random.choices(vrange, weights=w, k = N)*scalez #| units.km/units.s
+        return    vx, vy, vz
 
     def massList(N):
         meanM = 1.4 ; sigmaMass = 0.3
@@ -22,26 +26,20 @@ class neut_initialiser(object):
     dataVels = np.loadtxt("VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
                           comments="#", usecols=(3, 6, -1))
     
-    vrange = np.linspace(200, max(dataVels[:,-1]), N)
+    vrange = np.linspace(200, max(dataVels[:,-1]), N)/3
     velocityDistr = ProbFunc(vrange)
-    velList = velocityList(vrange, velocityDistr, N)
-    
+    velListx, velListy, velListz  = velocityList(vrange, velocityDistr, N)
+    velocityList = np.transpose(np.stack((velListx, velListy, velListz, massList(N))))
+
     x = np.zeros(N) #| units.kpc 
     y = np.zeros(N) #| units.kpc 
     z = np.zeros(N) #| units.kpc
     
-    neut_InitialConditions = np.stack((x, y, z, velList, 
-                                       massList(N)), axis=1)
-    neutsplit = np.split(neut_InitialConditions, N)
-
-    for i in range(10):
-        exec(f'neutlist_{i} = neutsplit[i]') #If you want to call the kth star
-                                             #you need to call neutlist_k
-                                             #this gives a 1x5 array of the initial
-                                             #conditions of the star.
-                                             #Look at NeutStarsTest.py to extract
-                                             #individual star
-
+    neut_InitialConditions = np.stack((x, y, z), axis=1)
+    neutCords = [0 for i in range(N)]
+    for i in range(N):
+        neutCords[i] = neut_InitialConditions[i, :3]
+    
     #def neut_stars(N_neut):
      #   return neuts
 
