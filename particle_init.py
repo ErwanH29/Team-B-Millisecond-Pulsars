@@ -12,11 +12,11 @@ class neut_initialiser(object):
 
     def velocityList(vrange, w, N):
         return random.choices(vrange, weights=w, 
-                              k = N) | units.km/units.s   
+                              k = N) #| units.km/units.s   
 
     def massList(N):
         meanM = 1.4 ; sigmaMass = 0.3
-        return np.random.normal(meanM, sigmaMass, N) | units.MSun 
+        return np.random.normal(meanM, sigmaMass, N) #| units.MSun 
 
     N = int(input("Give the number of millisecond pulsars you want to simulate: ", ))    
     dataVels = np.loadtxt("VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
@@ -26,12 +26,22 @@ class neut_initialiser(object):
     velocityDistr = ProbFunc(vrange)
     velList = velocityList(vrange, velocityDistr, N)
     
-    x = np.zeros(N) |units.kpc 
-    y = np.zeros(N) | units.kpc 
-    z = np.zeros(N) | units.kpc
+    x = np.zeros(N) #| units.kpc 
+    y = np.zeros(N) #| units.kpc 
+    z = np.zeros(N) #| units.kpc
     
     neut_InitialConditions = np.stack((x, y, z, velList, 
                                        massList(N)), axis=1)
+    neutsplit = np.split(neut_InitialConditions, N)
+
+    for i in range(10):
+        exec(f'neutlist_{i} = neutsplit[i]') #If you want to call the kth star
+                                             #you need to call neutlist_k
+                                             #this gives a 1x5 array of the initial
+                                             #conditions of the star.
+                                             #Look at NeutStarsTest.py to extract
+                                             #individual star
+
     #def neut_stars(N_neut):
      #   return neuts
 
