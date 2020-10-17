@@ -2,9 +2,12 @@ from particle_init import neut_initialiser
 import numpy as np
 import itertools
 
-p = neut_initialiser.neut_InitialConditions
-print(p, np.shape(p))
+p = neut_initialiser.velocityList
+pindiv = p[-1]
+print("Extracting all the x, y, z velocities of the stars: \n", p)
+print("Extracting the x, y, z velocities of the last star: \n", pindiv)
 
-print("Extracting MSP 1:\n", neut_initialiser.neutlist_0)
-print("Extracting MSP 4:\n", neut_initialiser.neutlist_3)
-print("Extracting MSP 10:\n", neut_initialiser.neutlist_9)
+q = neut_initialiser.neutCords
+qindiv = q[-1]
+print("Extracting all the x, y, z coords of the stars: \n", q)
+print("Extracting all the x, y, z coords of the stars: \n", qindiv)
