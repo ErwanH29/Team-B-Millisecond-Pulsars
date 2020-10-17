@@ -6,10 +6,16 @@
   
  **MilkyWayIsoPotential.py**
  - This script simply plots the isopotential contours of our Milky Way model.
+ 
+**NeutStarsTest.py**
+- The script illustrates how to extract information on specific simulated milisecond pulsars calculated in particles_init.py
   
 **PulsarsDATAATNF(2019-04-24).txt:**
  - This script includes the data for all observed milisecond Pulsars following Lorimer 2008's definition where period T < 30ms.
  - It only includes the distance
+ 
+ **References.md**
+ - This is a text file showing where all values and applied theories were taken from.
  
  **VELOCITIESPulsarsDataATNF(2019-04-24).txt:**
  - This script includes the data for all observed MSP with a defined velocity (PMRA, PMDEC and VTRANS) and could possibly be used to look at the origin of some pulsars.
