@@ -20,7 +20,7 @@ effective_iso_potential_plot(MW, omega, center_of_rotation = [0, 0]|units.kpc,
                                   resolution = [1000, 1000], fraction_screen_filled = 0.33,
                                   quadratic_contour_levels = True, contour_kwargs = dict(linestyles = 'solid', 
                                   cmap=('autumn')), omega2 = None, center_of_rotation2 = [0, 0]|units.kpc, 
-                                  fraction_screen_filled2 = 0.2, projection3D = False, number_of_contours = 10)
+                                  fraction_screen_filled2 = 0.2, projection3D = False, number_of_contours = 6)
 
 pyplot.colorbar()
 
