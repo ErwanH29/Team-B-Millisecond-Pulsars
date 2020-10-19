@@ -26,6 +26,8 @@ pyplot.colorbar()
 
 pyplot.xlabel(r"$x$ coordinate (kpc)")
 pyplot.ylabel(r"$y$ coordinate (kpc)")
+pyplot.xlim(-20,20)
+pyplot.ylim(-40,30)
 pyplot.legend()
 pyplot.savefig("EvolutionSystem", dpi=300)
 pyplot.show()
