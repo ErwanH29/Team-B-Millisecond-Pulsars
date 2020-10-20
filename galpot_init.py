@@ -1,4 +1,4 @@
-# This code is to define an LMC potential and place it at the right galactrocentric coordinates
+# This code is to define an LMC and SMC potential and place it at the right galactrocentric coordinates
 # The coordinates can be updated through d_update
 from amuse.lab import units
 from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile
@@ -35,6 +35,16 @@ class LMC_pot(object):
                                                 y-self.d[1], 
                                                 z-self.d[2])
         return ax_p+ax_h, ay_p+ay_h, az_p+az_h
+    
+    def radial_force(self, x, y, z):
+        r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
+        return self.plum.radial_force(r) + \
+            self.nfw.radial_force(r)
+            
+    def circular_velocity(self, x, y, z):
+        r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
+        fr = self.radial_force(r)
+        return (-r*fr).sqrt()
 
 class SMC_pot(object):
     def __init__(self):
@@ -68,3 +78,13 @@ class SMC_pot(object):
                                                 y-self.d[1], 
                                                 z-self.d[2])
         return ax_p+ax_h, ay_p+ay_h, az_p+az_h
+    
+    def radial_force(self, x, y, z):
+        r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
+        return self.plum.radial_force(r) + \
+            self.nfw.radial_force(r)
+            
+    def circular_velocity(self, x, y, z):
+        r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
+        fr = self.radial_force(r)
+        return (-r*fr).sqrt()
