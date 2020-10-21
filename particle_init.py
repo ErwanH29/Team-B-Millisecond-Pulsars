@@ -22,7 +22,7 @@ class neut_initializer(object):
         return np.sqrt(2/np.pi)*(meanV**2/sigmaV**3)*np.exp(-vel**2/(2*sigmaV**2))
 
     def velocityList(self, vrange, w):
-        r=np.linspace(-1,1,1000)
+        r = [-1, 1]
         scalex = [np.random.choice(r)]
         scaley = [np.random.choice(r)]
         scalez = [np.random.choice(r)]

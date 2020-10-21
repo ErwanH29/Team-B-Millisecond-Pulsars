@@ -2,7 +2,6 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord
 import astropy.coordinates as coord
 import numpy as np
-from amuse.lab import units
 
 # IMPORTANT: use heliocentric input units (degree, degree, kiloparsec)!!
 # Returns: galactocentric x, y and z distance in kiloparsec
@@ -29,7 +28,7 @@ def conv_coordPulsars(data): #I added a converting coordinate for Pulsars from h
     x_coMSP = np.array(coordinates_coMSP.cartesian.x)
     y_coMSP = np.array(coordinates_coMSP.cartesian.y)
     z_coMSP = np.array(coordinates_coMSP.cartesian.z)
-    MSPCoords = np.stack((x_coMSP, y_coMSP, z_coMSP), axis=1) | units.kpc
+    MSPCoords = np.stack((x_coMSP, y_coMSP, z_coMSP), axis=1) | u.kpc
 
     return MSPCoords
 
