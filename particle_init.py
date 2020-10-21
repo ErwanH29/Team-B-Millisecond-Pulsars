@@ -22,7 +22,7 @@ class neut_initializer(object):
         return np.sqrt(2/np.pi)*(meanV**2/sigmaV**3)*np.exp(-vel**2/(2*sigmaV**2))
 
     def velocityList(self, vrange, w):
-        r = [-1, 1]
+        r=np.linspace(-1,1,1000)
         scalex = [np.random.choice(r)]
         scaley = [np.random.choice(r)]
         scalez = [np.random.choice(r)]
@@ -33,7 +33,7 @@ class neut_initializer(object):
 
     def massList(self):
         meanM = 1.4 ; sigmaMass = 0.3
-        return np.random.normal(meanM, sigmaMass)
+        return np.random.normal(meanM, sigmaMass) #| units.MSun 
 
     def neut_path_init(self):
 
@@ -45,18 +45,18 @@ class neut_initializer(object):
     def neut_stars(self):
         vrange = np.linspace(200, max(self.dataVels[:,-1]))/3
         velocityDistr = self.ProbFunc(vrange)
-        neuts = Particles(self.N)
+        neuts = Particles(1)
+        
+        #for n in range(self.N):
         vx, vy, vz = self.velocityList(vrange, velocityDistr)
         print(vx, vy, vz)
-        for n in range(self.N):
-            neut = neuts[n]
-            neut.mass = self.massList() | units.MSun
-            #neut.position = conv_coord(74.7875, -65.9878, 49) # NGC 1783 position
-            #neut.velocity = (vx, vy, vz) | units.kms
-            # Choose the following initial conditions to to check out a captured orbit
-            neut.velocity = (200, 0, 0) | units.kms 
-            neut.position = (-0.88, -41, -27) * (1 | units.kpc) # LMC position, slight offset from center
-            neut.velocity += (47,242,225) * (1 | units.kms)
+        neut = neuts[0]
+        neut.mass = self.massList() | units.MSun
+        #neut.position = conv_coord(74.7875, -65.9878, 49) # NGC 1783 position
+        #neut.velocity = (vx, vy, vz) | units.kms # randomized initial  velocity
+        neut.velocity = (200, 0, 0) | units.kms # choose these init conditions for captured orbit
+        neut.position = (-0.88, -41, -27) * (1 | units.kpc) # LMC position, slight offset from center
+        neut.velocity += (47,242,225) * (1 | units.kms)
         return neuts
 
 ##### GALAXY TRACERS #####
