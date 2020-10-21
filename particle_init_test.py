@@ -10,7 +10,7 @@ def neut_stars(N_neut):
     neuts = Particles(1)
     neuts.mass = 2 | units.MSun 
     neuts.position = (-0.88, -41, -27) * (1 | units.kpc)
-    neuts.velocity = (-200, 0, 0) * (1 | units.kms) + \
+    neuts.velocity = (200, 0, 0) * (1 | units.kms) + \
         (47,242,225) * (1 | units.kms) 
     return neuts
 
