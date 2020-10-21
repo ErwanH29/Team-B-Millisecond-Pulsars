@@ -4,26 +4,24 @@ from amuse.lab import nbody_system, units
 from amuse.couple import bridge
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
 from galpot_init import LMC_pot, SMC_pot
-from amuse.plot import *
-from matplotlib import pyplot
 
 def neut_gal_evol():
     neut_code = neut_initializer()
     gal_code = gal_initializer()
     N = neut_code.N
-    neuts = neut_code.neut_stars()
+
     L_neut = []
     for i in range(N):
         MWG = MWpotentialBovy2015()
         LMC = LMC_pot()
         SMC = SMC_pot()
-        
+        neuts= neut_code.neut_stars()
         gals = gal_code.gal_tracer()
         converter_1 = nbody_system.nbody_to_si(gals.mass.sum(),
                                                gals.position.length())
          
-        converter_2 = nbody_system.nbody_to_si(neuts[i].mass.sum(),
-                                               neuts[i].position.length())
+        converter_2 = nbody_system.nbody_to_si(neuts.mass.sum(),
+                                               neuts.position.length())
         
         from amuse.community.hermite.interface import Hermite
         
@@ -71,14 +69,13 @@ def neut_gal_evol():
             l_gal[5].append(gals[1].z)
             
             ch_g2l_2.copy()
-            
-            l_neut[0].append(neuts[i].x)
-            l_neut[1].append(neuts[i].y)
-            l_neut[2].append(neuts[i].z)
+            l_neut[0].append(neuts.x)
+            l_neut[1].append(neuts.y)
+            l_neut[2].append(neuts.z)
         
-        print(l_neut)
         L_neut.append(l_neut)
-        gravity_1.stop()   
-        gravity_2.stop()
         
-    return  l_gal, L_neut
+    gravity_1.stop()   
+    gravity_2.stop()
+
+    return  l_gal, L_neut, N
