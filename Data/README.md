@@ -1,4 +1,4 @@
-## This branch looks at manipulating data for both theoretical Millisecond Pulsars (MSP) as well as observational ones
+## This directory looks at manipulating data for both theoretical Millisecond Pulsars (MSP) as well as observational ones
 
 **ExistingPulsarData.py:**
 - This script will be imported onto another script at a later time, but for now it plots all observed pulsars onto the galactic plane to help with a visual comparison of simulated
