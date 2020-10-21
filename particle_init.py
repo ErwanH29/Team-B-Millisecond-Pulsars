@@ -51,8 +51,11 @@ class neut_initializer(object):
         for n in range(self.N):
             neut = neuts[n]
             neut.mass = self.massList() | units.MSun
-            neut.position = conv_coord(74.7875, -65.9878, 49)
-            neut.velocity = (vx, vy, vz) | units.kms
+            #neut.position = conv_coord(74.7875, -65.9878, 49) # NGC 1783 position
+            #neut.velocity = (vx, vy, vz) | units.kms
+            # Choose the following initial conditions to to check out a captured orbit
+            neut.velocity = (200, 0, 0) | units.kms 
+            neut.position = (-0.88, -41, -27) * (1 | units.kpc) # LMC position, slight offset from center
             neut.velocity += (47,242,225) * (1 | units.kms)
         return neuts
 
