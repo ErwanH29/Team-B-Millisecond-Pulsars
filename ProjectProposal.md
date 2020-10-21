@@ -31,6 +31,8 @@ Furthermore pulsars are an integral part of physics as there are many uses to it
 
 **Literature references:**
 
+Brad M. S. Hansen and E. Sterl Phinney. The pulsar kick velocity distribution. , 291(3):569–577, November 1997. doi: 10.1093/mnras/291.3.569.
+
 Duncan R. Lorimer. Binary and Millisecond Pulsars at the New Millennium.Living Reviewsin Relativity, 4(1):5, June 2001. doi: 10.12942/lrr-2001-5.
 
 R. N. Manchester, G. B. Hobbs, A. Teoh, and M. Hobbs. The Australia Telescope NationalFacility Pulsar Catalogue. , 129(4):1993–2006, April 2005. doi: 10.1086/428488.
