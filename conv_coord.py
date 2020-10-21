@@ -2,7 +2,7 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord
 import astropy.coordinates as coord
 import numpy as np
-from aumse.lab import units
+from amuse.lab import units
 
 # IMPORTANT: use heliocentric input units (degree, degree, kiloparsec)!!
 # Returns: galactocentric x, y and z distance in kiloparsec
