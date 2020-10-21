@@ -4,6 +4,8 @@ The Data directory shows the main references used in the project, observations o
 
 The project proposal gives a good introduction on the aims of our research and how we intend to achieve it and lies with the final report in the directory Reports.
 
+![alt text](https://imgur.com/a/caK97wQ)
+
 ## This folder is for the scripts the report and simulation are based off of.
 
 **conv_coord.py**
