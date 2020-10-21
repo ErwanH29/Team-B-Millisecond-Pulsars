@@ -1,4 +1,4 @@
-# Title: The Possibility of Exotic Millisecond Pulsars Living in the Milky Way
+# The Possibility of Exotic Millisecond Pulsars Living in the Milky Way
 
 Team members: Shiyang Zhang, Arend Moerman, Erwan Hochart
 
