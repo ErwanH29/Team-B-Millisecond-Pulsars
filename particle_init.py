@@ -33,7 +33,7 @@ class neut_initializer(object):
 
     def massList(self):
         meanM = 1.4 ; sigmaMass = 0.3
-        return np.random.normal(meanM, sigmaMass) #| units.MSun 
+        return np.random.normal(meanM, sigmaMass)
 
     def neut_path_init(self):
 
