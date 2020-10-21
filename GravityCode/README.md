@@ -1,4 +1,4 @@
-## This branch is for the scripts the report and simulation are based off of.
+## This folder is for the scripts the report and simulation are based off of.
 
 **conv_coord.py**
 - This script takes the positional (deg,deg,kpc) and velocity coordinates of any object and rotates it into the galactocentric frame into an (x,y,z) coordinate in -- kpc
