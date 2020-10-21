@@ -1,5 +1,8 @@
 ## This branch is for the scripts the report and simulation are based off of.
 
+**capture_check.py**
+- This script filters all the Millisecond pulsars bound to the Milky Way to simplify the number of pulsars grav_solve.py ends up plotting.
+
 **conv_coord.py**
 - This script takes the positional (deg,deg,kpc) and velocity coordinates of any object and rotates it into the galactocentric frame into an (x,y,z) coordinate in -- kpc
 
