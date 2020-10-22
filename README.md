@@ -2,7 +2,7 @@ This GitHub incorporates the code utilising AMUSE which analyses the possibility
 
 The Data directory shows the main references used in the project, observations of existing pulsars as well as small test scripts used to manipulate such data and the other repository is the code the research is based off of.
 
-The project proposal gives a good introduction on the aims of our research and how we intend to achieve it and lies with the final report in the directory Reports.
+The project proposal gives a good introduction on the aims of our research and how we intend to achieve it and lies with the final report in the directory Documents.
 
 ![](https://i.imgur.com/LuFyQi8.png)
 
