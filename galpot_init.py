@@ -1,7 +1,7 @@
-# This code is to define an LMC and SMC potential and place it at the right galactrocentric coordinates
+# This code is to define an LMC potential and place it at the right galactrocentric coordinates
 # The coordinates can be updated through d_update
-from amuse.lab import units
-from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile
+from amuse.lab import units, new_king_model
+from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile, MWpotentialBovy2015
 
 class LMC_pot(object):
     def __init__(self):
@@ -10,6 +10,7 @@ class LMC_pot(object):
         self.nfw = NFW_profile(8.18e6|units.MSun/units.kpc**3, #This value was taken from SIffert et al. 2011
                                2.6|units.kpc)
         self.d = (0,0,0) | units.kpc
+        
     def d_update(self, x_c, y_c, z_c):
         self.d[0] = x_c
         self.d[1] = y_c
@@ -43,7 +44,7 @@ class LMC_pot(object):
             
     def circular_velocity(self, x, y, z):
         r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
-        fr = self.radial_force(r)
+        fr = self.radial_force(x, y, z)
         return (-r*fr).sqrt()
 
 class SMC_pot(object):
@@ -53,6 +54,7 @@ class SMC_pot(object):
         self.nfw = NFW_profile(8.18e6|units.MSun/units.kpc**3, # No values for SMC halo....
                                2.6|units.kpc)
         self.d = (0,0,0) | units.kpc
+        
     def d_update(self, x_c, y_c, z_c):
         self.d[0] = x_c
         self.d[1] = y_c
@@ -86,5 +88,30 @@ class SMC_pot(object):
             
     def circular_velocity(self, x, y, z):
         r = ((x-self.d[0])**2 + (y-self.d[1])**2 + (z-self.d[2])**2).sqrt()
-        fr = self.radial_force(r)
+        fr = self.radial_force(x, y, z)
         return (-r*fr).sqrt()
+
+class ngc_1783_pot(object):
+    
+    def __init__(self):
+        self.plum = Plummer_profile(1.7e5|units.MSun, 2400|units.au) #muciarelli et al
+        self.d = (0,0,0) | units.kpc
+        
+    def d_update(self, x_c, y_c, z_c):
+        self.d[0] = x_c
+        self.d[1] = y_c
+        self.d[2] = z_c
+        
+    def get_potential_at_point(self, eps, x, y, z):
+        return self.plum.get_potential_at_point(eps, 
+                                                x-self.d[0], 
+                                                y-self.d[1], 
+                                                z-self.d[2])
+    
+    def get_gravity_at_point(self, eps, x, y, z):
+        ax_p, ay_p, az_p = self.plum.get_gravity_at_point(eps, 
+                                                x-self.d[0], 
+                                                y-self.d[1], 
+                                                z-self.d[2])
+        
+        return ax_p, ay_p, az_p
