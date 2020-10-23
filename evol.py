@@ -85,6 +85,12 @@ def neut_gal_evol():
         gravity_2.add_system(gravity_code_2, (MWG, LMC, SMC, NGC_1783))
         gravity_2.timestep = dt | units.Myr
         
+        # Initial Energy
+        E_init = gravity_1_MC.kinetic_energy + gravity_1_MC.potential_energy +\
+                 gravity_2.kinetic_energy + gravity_2.potential_energy +\
+                 gravity_1_ngc.kinetic_energy + gravity_1_ngc.potential_energy        
+        E = []
+        
         times = np.arange(0., 500, dt) | units.Myr
         
         l_gal = gal_code.gal_path_init()
@@ -122,11 +128,17 @@ def neut_gal_evol():
             l_neut[0].append(neuts.x)
             l_neut[1].append(neuts.y)
             l_neut[2].append(neuts.z)
-        
+            #
+            E_t = gravity_1_MC.kinetic_energy + gravity_1_MC.potential_energy +\
+                  gravity_1_ngc.kinetic_energy + gravity_1_ngc.potential_energy +\
+                  gravity_2.kinetic_energy + gravity_2.potential_energy
+            ratio = E_t/E_init
+            E.append(ratio)
+            #
         L_neut.append(l_neut)
         
     gravity_1_MC.stop()
     gravity_1_ngc.stop()
     gravity_2.stop()
 
-    return  l_gal, L_neut, N
+    return  l_gal, L_neut, N, E
