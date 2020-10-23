@@ -19,7 +19,7 @@ class neut_initializer(object):
         
     def ProbFunc(self, vel):
         meanV = 300 ; sigmaV = 190
-        return np.sqrt(1/(2*np.pi))*(1/sigmaV**2)*np.exp(-(vel-meanV)**2/(2*sigmaV**2))
+        return np.sqrt(2/np.pi)*(meanV**2/sigmaV**3)*np.exp(-vel**2/(2*sigmaV**2))
 
     def velocityList(self, vrange, w):
         r=[-1,1]
