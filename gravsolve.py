@@ -4,7 +4,7 @@ from amuse.plot import *
 from evol import neut_gal_evol
 from capture_check import capture_check
 
-X_gal, X_neut, N = neut_gal_evol()
+X_gal, X_neut, N, E_ratio = neut_gal_evol()
 
 plot(X_gal[0], X_gal[1], lw=0.7, label='LMC')
 plot(X_gal[3], X_gal[4], lw=0.7, label='SMC')
