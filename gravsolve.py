@@ -27,8 +27,6 @@ effective_iso_potential_plot(MW, omega, center_of_rotation = [0, 0]|units.kpc,
 
 #pyplot.colorbar()
 
-pyplot.xlabel(r"$x$ coordinate (kpc)")
-pyplot.ylabel(r"$y$ coordinate (kpc)")
 pyplot.xlim(-20,20)
 pyplot.ylim(-40,30)
 
@@ -37,5 +35,7 @@ for i in range(N):
     plot(X_neut[i][0], X_neut[i][1], lw=1, label='Pulsar {}'.format(i+1))
 
 pyplot.legend()
+pyplot.xlabel(r"$x$ coordinate (kpc)")
+pyplot.ylabel(r"$y$ coordinate (kpc)")
 pyplot.savefig("EvolutionSystem", dpi=300)
 pyplot.show()
