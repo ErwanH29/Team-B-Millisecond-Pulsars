@@ -7,3 +7,7 @@
 * The velocity distribution was taken from *Hansen 1997*
 * The Milky Way Potential was taken from galpy - *Bovy 2014* and provided in the AMUSE package as well as the potential used for the LMC and SMC
 * Approximation of the LMC and SMC as a bulge is due to several papers including *Erkal 2018, Erkal 2019* and *Boubert 2020* using it as such
+* The star formation rate of the LMC was taken from *Harris 2009*
+* The star formation rate of the MW was taken from *Robitaille and Whitney 2010*
+* The millisecond pulsar birth rate at the Milky Way was taken from *Lorimer 2008*
+* The binary fraction of millisecond pulsars was taken from *Lorimer 2008*
