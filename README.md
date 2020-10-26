@@ -6,6 +6,8 @@ The project proposal gives a good introduction on the aims of our research and h
 
 ![](https://i.imgur.com/LuFyQi8.png)
 
+![alt text](https://github.com/ErwanH29[reponame]/Team-B-Millisecond-Pulsars/xy_0_300%_3f.gif?raw=true)
+
 ## This folder is for the scripts the report and simulation are based off of.
 
 **conv_coord.py**
