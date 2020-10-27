@@ -9,7 +9,7 @@ class LMC_pot(object):
         self.plum = Plummer_profile(2e10|units.MSun, 0.73|units.kpc)
         self.nfw = NFW_profile(8.18e6|units.MSun/units.kpc**3, #This value was taken from SIffert et al. 2011
                                2.6|units.kpc)
-        self.d = (0,0,0) | units.kpc
+        self.d = (-0.7665,-41.2635,-27.1312) | units.kpc
         
     def d_update(self, x_c, y_c, z_c):
         self.d[0] = x_c
@@ -53,7 +53,7 @@ class SMC_pot(object):
         self.plum = Plummer_profile(4e9|units.MSun, 0.339|units.kpc) # scale radius by assuming R~m^(1/3) and comparing to LMC
         self.nfw = NFW_profile(8.18e6|units.MSun/units.kpc**3, # No values for SMC halo....
                                2.6|units.kpc)
-        self.d = (0,0,0) | units.kpc
+        self.d = (15.4746,-37.0967,-43.1644) | units.kpc 
         
     def d_update(self, x_c, y_c, z_c):
         self.d[0] = x_c
@@ -95,7 +95,7 @@ class ngc_1783_pot(object):
     
     def __init__(self):
         self.plum = Plummer_profile(1.7e5|units.MSun, 2400|units.au) #muciarelli et al
-        self.d = (0,0,0) | units.kpc
+        self.d = (-3.8302,-39.4082,-28.7483) | units.kpc
         
     def d_update(self, x_c, y_c, z_c):
         self.d[0] = x_c
