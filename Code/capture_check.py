@@ -1,5 +1,6 @@
 from amuse.lab import units
 import numpy as np
+import pandas as pd
 
 def capture_check(L_neut):
     
@@ -12,15 +13,14 @@ def capture_check(L_neut):
     z_upp = 10 | units.kpc
     z_low = -10 | units.kpc
     
-    for j in range(len(L_neut)):
-        posx_check = L_neut[j][0][-1]
-        posy_check = L_neut[j][1][-1]
-        posz_check = L_neut[j][2][-1]
+    last_col = L_neut.iloc[:,-1]
+    for i in range(len(last_col)):
         
-        if (x_low <= posx_check <= x_upp and \
-            y_low <= posy_check <= y_upp and \
-                z_low <= posz_check <= z_upp):
+        pos_check = last_col.iloc[i][0]
+
+        if (x_low <= pos_check[0] <= x_upp and \
+            y_low <= pos_check[1] <= y_upp and \
+                z_low <= pos_check[2] <= z_upp):
             
-            check.append(j)
-            
+            check.append(i)     
     return check
