@@ -17,8 +17,12 @@ class neut_initializer(object):
         N = self.N
         return int(N)
     
-    def decision(self):
-        return random.random() < 0.8 # from the MSP formation rate
+    def decision(self, time):
+        if time == 0.0 | units.Myr: # because at 0.0 neut_star_init already creates neut
+            c = False
+        else:
+            c = random.random() < 0.8 # from the MSP formation rate
+        return c
     
     def ProbFunc(self, vel):
         meanV = 250 ; sigmaV = 190
@@ -41,30 +45,25 @@ class neut_initializer(object):
         meanM = 1.4 ; sigmaMass = 0.3
         return np.random.normal(meanM, sigmaMass) #| units.MSun 
 
-    def neut_star_init(self, pos):
+    def neut_star_init(self, pos, vel_sys):
         self.N=1
         neuts = Particles(1)
         neuts.mass = self.massList() | units.MSun
         neuts.position = pos
         neuts.velocity = self.velocityList() * (1 | units.kms)
+        neuts.velocity += vel_sys
+        
         
         return neuts
 
-    def add_neut(self, neuts, pos, vel_sys):
-        c = self.decision()
-        if c==True:
-            self.N += 1
-            
-            add_neut = Particles(1)
-            add_neut.mass = self.massList() | units.MSun
-            add_neut.position = pos 
-            add_neut.velocity = self.velocityList() * (1 | units.kms)
-            add_neut.velocity += vel_sys
-            neuts.add_particle(add_neut)   
-        else:
-           neuts = neuts 
-        return neuts
-
+    def add_neut(self, pos, vel_sys):
+        self.N += 1
+        add_n = Particles(1)
+        add_n.mass = self.massList() | units.MSun
+        add_n.position = pos 
+        add_n.velocity = self.velocityList() * (1 | units.kms)
+        add_n.velocity += vel_sys
+        return add_n
 ##### GALAXY TRACERS #####
 
 # initialize LMC and SMC
