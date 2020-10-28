@@ -58,7 +58,7 @@ def neut_gal_evol(**options):
         ngc_1783.position = old_coord[4]
         ngc_1783.velocity += gal_MC[0].velocity
         
-    neuts = neut_code.neut_star_init(ngc_1783.position)
+    neuts = neut_code.neut_star_init(ngc_1783.position, ngc_1783.velocity)
    
     converter_1_MC = nbody_system.nbody_to_si(gal_MC.mass.sum(),
                                           gal_MC.position.sum())
@@ -70,7 +70,7 @@ def neut_gal_evol(**options):
                                            neuts.position.sum())
 
     # the code for the dynamic galactic potentials
-    gravity_code_1_MC = Hermite(converter_1_MC, mode='gpu', number_of_workers=4)
+    gravity_code_1_MC = Hermite(converter_1_MC, mode='cpu', number_of_workers=4)
     gravity_code_1_MC.particles.add_particles(gal_MC)
     ch_g2l_1_MC = gravity_code_1_MC.particles.new_channel_to(gal_MC)
     
@@ -79,24 +79,19 @@ def neut_gal_evol(**options):
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
     # the code for the neutron stars
-    gravity_code_2 = FastKick(converter_2, mode='gpu', number_of_workers=4)
+    gravity_code_2 = Hermite(converter_2, mode='gpu', number_of_workers=6)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
-    ch_l2g_2 = neuts.new_channel_to(gravity_code_2.particles)
       
     dt = 1 #Define timestep in Myr
     
-    gravity_1_MC = bridge.Bridge()
-    gravity_1_MC.add_system(gravity_code_1_MC, (MWG,))
-    gravity_1_MC.timestep = dt | units.Myr
+    gravity = bridge.Bridge()
     
-    gravity_1_ngc = bridge.Bridge()
-    gravity_1_ngc.add_system(gravity_code_1_ngc, (MWG, LMC, SMC))
-    gravity_1_ngc.timestep = dt | units.Myr
-
-    gravity_2 = bridge.Bridge()
-    gravity_2.add_system(gravity_code_2, (MWG, LMC, SMC, NGC_1783))
-    gravity_2.timestep = dt | units.Myr
+    gravity.add_system(gravity_code_1_MC, (MWG,))
+    gravity.add_system(gravity_code_1_ngc, (MWG, LMC, SMC))
+    gravity.add_system(gravity_code_2, (MWG, LMC, SMC, NGC_1783))
+    
+    gravity.timestep = dt | units.Myr
     
     times = np.arange(0., 10, dt) | units.Myr
     
@@ -107,20 +102,13 @@ def neut_gal_evol(**options):
     for time in times:
         
         print(time)
-        print(neuts)
         N = neut_code.N_count()
         
         LMC.d_update(gal_MC[0].x, gal_MC[0].y, gal_MC[0].z)
         SMC.d_update(gal_MC[1].x, gal_MC[1].y, gal_MC[1].z)
         NGC_1783.d_update(ngc_1783.x, ngc_1783.y, ngc_1783.z)
         
-        
-        neuts.velocity += ngc_1783.velocity
-        
-        gravity_1_MC.evolve_model(time)
-        gravity_1_ngc.evolve_model(time)
-        
-        gravity_2.evolve_model(time)
+        gravity.evolve_model(time)
         
         ch_g2l_1_MC.copy()
         
@@ -140,24 +128,23 @@ def neut_gal_evol(**options):
 
         df_conc = pd.DataFrame()
         rows = len(neut_line.index)
-
+        ch_g2l_2.copy()
         if N >= 1:
             for i in range(N):
-                ch_g2l_2.copy()
+                
                 df = pd.Series({'{}'.format(time): [neuts[i].position]})
-                df_conc = df_conc.append(df, ignore_index=True)
-            print(df_conc)    
+                df_conc = df_conc.append(df, ignore_index=True) 
             neut_line = neut_line.append(df_conc, ignore_index = True)
             neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
 
         #pplot(gal_MC, 0.05, 50, time, fix='y') # for plotting GIF files. WARNING: takes long!!
-        
-        neuts = neut_code.add_neut(neuts, ngc_1783.position, ngc_1783.velocity)
-        ch_l2g_2.copy()
+        if neut_code.decision(time)==True:
+            add_n = neut_code.add_neut(ngc_1783.position, ngc_1783.velocity)
+            neuts.add_particle(add_n) 
+            gravity_code_2.particles.add_particles(add_n)
 
-    gravity_1_MC.stop()
-    gravity_1_ngc.stop()
-    gravity_2.stop()
+    gravity.stop()
+
     neut_line = neut_line.dropna(thresh=1)
 
     return  l_gal, neut_line, N
