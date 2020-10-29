@@ -1,7 +1,7 @@
-from amuse.lab import Particles, Particle, units
+from amuse.lab import Particles, units
 import numpy as np
 import random
-from conv_coord import conv_coord
+from coordinates import conv_coord
 
 # initialize particle sets here. 
 ##### NEUTRON STAR SET #####
@@ -21,7 +21,7 @@ class neut_initializer(object):
         if time == 0.0 | units.Myr: # because at 0.0 neut_star_init already creates neut
             c = False
         else:
-            c = random.random() < 0.8 # from the MSP formation rate
+            c = random.random() < 0.55 # from the MSP formation rate
         return c
     
     def ProbFunc(self, vel):
@@ -105,14 +105,3 @@ class gal_initializer(object):
         y_ngc_1783 = [] | units.kpc
         z_ngc_1783 = [] | units.kpc
         return x_lmc, y_lmc, z_lmc, x_smc, y_smc, z_smc, x_ngc_1783, y_ngc_1783, z_ngc_1783
-
-def old_coordlist():
-    LMC_coord = (-32.2877571477, -201.334477302, -194.233794365) | units.kpc
-    LMC_vel = (-23.6377151397, -116.106444922, -126.743869139) | units.kms
-    SMC_coord = (-35.2794369809, -140.65635819, -96.9363051162) | units.kpc
-    SMC_vel = (-49.5945188999, -49.9087554726, -12.7823855815) | units.kms
-    ngc_coord = (-30.3480687709, -203.481152417, -197.606147399) | units.kpc
-    ngc_vel = (26.7697951421, -130.939929951, -234.017971574) | units.kms
-    
-    data = (LMC_coord, LMC_vel, SMC_coord, SMC_vel, ngc_coord, ngc_vel)
-    return data
