@@ -1,7 +1,5 @@
-# This code is to define an LMC potential and place it at the right galactrocentric coordinates
-# The coordinates can be updated through d_update
-from amuse.lab import units, new_king_model
-from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile, MWpotentialBovy2015
+from amuse.lab import units
+from amuse.ext.galactic_potentials import Plummer_profile, NFW_profile
 
 class LMC_pot(object):
     def __init__(self):
