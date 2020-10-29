@@ -77,7 +77,7 @@ def neut_gal_evol(**options):
     gravity_code_1_ngc.particles.add_particles(ngc_1783)
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
-    gravity_code_2 = Hermite(converter_2, mode='gpu', number_of_workers=6)
+    gravity_code_2 = Hermite(converter_2)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
       
