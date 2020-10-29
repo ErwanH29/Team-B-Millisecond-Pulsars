@@ -15,8 +15,8 @@ def capture_check(L_neut):
     x_low = -20 | units.kpc
     y_upp = 20 | units.kpc
     y_low = -20 | units.kpc
-    z_upp = 10 | units.kpc
-    z_low = -10 | units.kpc
+    z_upp = 20 | units.kpc
+    z_low = -20 | units.kpc
     
     last_col = L_neut.iloc[:,-1]
     for i in range(len(last_col)):
@@ -68,6 +68,10 @@ class plot_neut_pos(object):
         #print(line_x)
         return line_x, line_y, line_z
     
+    def zero_to_nan(self,values):
+        """Replace every 0 with 'nan' and return a copy."""
+        return [float('nan') if x==0 else x for x in values]
+    
     def plot(self, use_all=True, **options):
         row_len = len(self.dat.index)
         if use_all==True:
@@ -75,23 +79,34 @@ class plot_neut_pos(object):
                 line_x, line_y, line_z = self.make_line(i)
                 print(i)
 
+                line_x = self.zero_to_nan(line_x)
+                line_y = self.zero_to_nan(line_y)
+                line_z = self.zero_to_nan(line_z)
+                print(line_x)
+
                 if options.get('fix') == 'z':
-                    plot(line_x, line_y)
+                    plot(line_x, line_y, lw=0.5)
                 if options.get('fix') == 'y':
-                    plot(line_x, line_z)
+                    plot(line_x, line_z, lw=0.5)
                 if options.get('fix') == 'x':
-                    plot(line_y, line_z)
+                    plot(line_y, line_z, lw=0.5)
                     
         if use_all==False:
             for i in options.get('check'):
                 line_x, line_y, line_z = self.make_line(i)
+                
+                line_x = self.zero_to_nan(line_x)
+                line_y = self.zero_to_nan(line_y)
+                line_z = self.zero_to_nan(line_z)
+                
                 if options.get('fix') == 'z':
-                    plot(line_x, line_y)
+                    plot(line_x, line_y, lw=0.5)
                 if options.get('fix') == 'y':
-                    plot(line_x, line_z)
+                    plot(line_x, line_z, lw=0.5)
                 if options.get('fix') == 'x':
-                    plot(line_y, line_z)
-                    
+                    plot(line_y, line_z, lw=0.5)
+        
+        pyplot.title('Ejected MSP from LMC')
         pyplot.xlabel(r"$x$ coordinate (kpc)")
         pyplot.ylabel(r"$y$ coordinate (kpc)")
         pyplot.savefig("neutron ejection", dpi=300)
