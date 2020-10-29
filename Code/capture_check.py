@@ -79,10 +79,9 @@ class plot_neut_pos(object):
                 line_x, line_y, line_z = self.make_line(i)
                 print(i)
 
-                line_x = self.zero_to_nan(line_x)
-                line_y = self.zero_to_nan(line_y)
-                line_z = self.zero_to_nan(line_z)
-                print(line_x)
+                line_x = self.zero_to_nan(line_x) | units.kpc
+                line_y = self.zero_to_nan(line_y) | units.kpc
+                line_z = self.zero_to_nan(line_z) | units.kpc
 
                 if options.get('fix') == 'z':
                     plot(line_x, line_y, lw=0.5)
@@ -92,12 +91,17 @@ class plot_neut_pos(object):
                     plot(line_y, line_z, lw=0.5)
                     
         if use_all==False:
-            for i in options.get('check'):
+            c = options.get('check')
+            cl = c.read()
+            cl = cl.strip()
+            cl = ast.literal_eval(cl)
+            for i in cl:
+                print(i)
                 line_x, line_y, line_z = self.make_line(i)
                 
-                line_x = self.zero_to_nan(line_x)
-                line_y = self.zero_to_nan(line_y)
-                line_z = self.zero_to_nan(line_z)
+                line_x = self.zero_to_nan(line_x) | units.kpc
+                line_y = self.zero_to_nan(line_y) | units.kpc
+                line_z = self.zero_to_nan(line_z) | units.kpc
                 
                 if options.get('fix') == 'z':
                     plot(line_x, line_y, lw=0.5)
@@ -105,13 +109,24 @@ class plot_neut_pos(object):
                     plot(line_x, line_z, lw=0.5)
                 if options.get('fix') == 'x':
                     plot(line_y, line_z, lw=0.5)
+                    
+        if use_all==True: 
+            pyplot.title('Ejected MSPs from LMC')
+            
+        if use_all==False: 
+            pyplot.title('Ejected MSPs close encounters')
         
-        pyplot.title('Ejected MSP from LMC')
-        pyplot.xlabel(r"$x$ coordinate (kpc)")
-        pyplot.ylabel(r"$y$ coordinate (kpc)")
+        if options.get('fix') == 'z':
+            pyplot.xlabel(r"$x$ coordinate (kpc)")
+            pyplot.ylabel(r"$y$ coordinate (kpc)")
+            
+        if options.get('fix') == 'x':
+            pyplot.xlabel(r"$y$ coordinate (kpc)")
+            pyplot.ylabel(r"$z$ coordinate (kpc)")
+            
+        if options.get('fix') == 'y':
+            pyplot.xlabel(r"$x$ coordinate (kpc)")
+            pyplot.ylabel(r"$z$ coordinate (kpc)")
+            
         pyplot.savefig("neutron ejection", dpi=300)
         pyplot.show()
-            
-        
-    
-    
