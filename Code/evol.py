@@ -91,7 +91,7 @@ def neut_gal_evol(**options):
     
     gravity.timestep = dt | units.Myr
     
-    times = np.arange(0., 10, dt) | units.Myr
+    times = np.arange(0., 50, dt) | units.Myr
     
     l_gal = gal_code.gal_path_init()
     
