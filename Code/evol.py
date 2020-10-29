@@ -138,7 +138,7 @@ def neut_gal_evol(**options):
             neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
 
         #pplot(gal_MC, 0.05, 50, time, fix='y') # for plotting GIF files. WARNING: takes long!!
-        if neut_code.decision(time)==True:
+        if neut_code.decision(time)==True and time <= (1000 | units.Myr):
             add_n = neut_code.add_neut(ngc_1783.position, ngc_1783.velocity)
             neuts.add_particle(add_n) 
             gravity_code_2.particles.add_particles(add_n)
