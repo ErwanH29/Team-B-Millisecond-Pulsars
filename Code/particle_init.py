@@ -10,7 +10,7 @@ class neut_initializer(object):
     
     def __init__(self):
         self.N = 0
-        self.dataVels = np.loadtxt("VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
+        self.dataVels = np.loadtxt("Data/VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
                                    comments="#", usecols=(3, 6, -1))
     
     def N_count(self):
