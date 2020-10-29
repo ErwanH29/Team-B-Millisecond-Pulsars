@@ -1,14 +1,14 @@
 import numpy as np
-from particle_init import neut_initializer, gal_initializer, old_coordlist
+from coordinates import old_coordlist, capture_check
+from particle_init import neut_initializer, gal_initializer
 from amuse.lab import nbody_system, units, Particles
 from amuse.units import quantities
 from amuse.couple import bridge
 from galpot_init import LMC_pot, SMC_pot, ngc_1783_pot
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
-from plot_potential import pplot
 from amuse.community.hermite.interface import Hermite
-from amuse.community.fastkick.interface import FastKick
 import pandas as pd
+import pickle
 
 class drift_without_gravity(object):
     def __init__(self, convert_nbody, time= 0 |units.Myr):
@@ -69,8 +69,7 @@ def neut_gal_evol(**options):
     converter_2 = nbody_system.nbody_to_si(neuts.mass.sum(),
                                            neuts.position.sum())
 
-    # the code for the dynamic galactic potentials
-    gravity_code_1_MC = Hermite(converter_1_MC, mode='cpu', number_of_workers=4)
+    gravity_code_1_MC = Hermite(converter_1_MC)
     gravity_code_1_MC.particles.add_particles(gal_MC)
     ch_g2l_1_MC = gravity_code_1_MC.particles.new_channel_to(gal_MC)
     
@@ -78,7 +77,6 @@ def neut_gal_evol(**options):
     gravity_code_1_ngc.particles.add_particles(ngc_1783)
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
-    # the code for the neutron stars
     gravity_code_2 = Hermite(converter_2, mode='gpu', number_of_workers=6)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
@@ -138,14 +136,20 @@ def neut_gal_evol(**options):
             neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
 
         #pplot(gal_MC, 0.05, 50, time, fix='y') # for plotting GIF files. WARNING: takes long!!
-        if neut_code.decision(time)==True and time <= (1000 | units.Myr):
+        if neut_code.decision(time)==True and time <= (1000 | units.Myr) :
             add_n = neut_code.add_neut(ngc_1783.position, ngc_1783.velocity)
             neuts.add_particle(add_n) 
             gravity_code_2.particles.add_particles(add_n)
 
     gravity.stop()
-
+    
     neut_line = neut_line.dropna(thresh=1)
-    neut_line.to_pickle('neut_stars_positions.pkl')
+    check = capture_check(neut_line)
+    with open('check.txt', 'w') as f:
+        for item in check:
+            f.write("%s\n" % item)
 
-    return  l_gal, neut_line, N
+    neut_line.to_pickle('neut_stars_positions.pkl')
+    
+    with open('gal_line.pickle', 'wb') as f:
+        pickle.dump(l_gal, f)
