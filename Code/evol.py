@@ -146,5 +146,6 @@ def neut_gal_evol(**options):
     gravity.stop()
 
     neut_line = neut_line.dropna(thresh=1)
+    neut_line.to_pickle('neut_stars_positions.pkl')
 
     return  l_gal, neut_line, N
