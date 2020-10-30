@@ -9,6 +9,7 @@ from amuse.ext.galactic_potentials import MWpotentialBovy2015
 from amuse.community.hermite.interface import Hermite
 import pandas as pd
 import pickle
+import json
 
 class drift_without_gravity(object):
     def __init__(self, convert_nbody, time= 0 |units.Myr):
@@ -145,10 +146,10 @@ def neut_gal_evol(**options):
     
     neut_line = neut_line.dropna(thresh=1)
     check = capture_check(neut_line)
-    with open('check.txt', 'w') as f:
-        for item in check:
-            f.write("%s\n" % item)
-
+    f = open('check.txt', 'w')
+    json.dump(check, f)
+    f.close()
+    
     neut_line.to_pickle('neut_stars_positions.pkl')
     
     with open('gal_line.pickle', 'wb') as f:
