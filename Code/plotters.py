@@ -160,14 +160,15 @@ def plot_MC(**options):
     if options.get('fix') == 'z':
         plot(gal_line[0], gal_line[1], lw=0.7, label='LMC', ls='--')
         plot(gal_line[3], gal_line[4], lw=0.7, label='SMC', ls='--')
-        plot(gal_line[6], gal_line[7], lw=0.7, label='NGC 1783', ls='--')
+        plot(gal_line[6], gal_line[7], lw=0.7, label='Globular Cluster', ls='-.')
     
     if options.get('fix') == 'y':
         plot(gal_line[0], gal_line[2], lw=0.7, label='LMC', ls='--')
         plot(gal_line[3], gal_line[5], lw=0.7, label='SMC', ls='--')
-        plot(gal_line[6], gal_line[8], lw=0.7, label='NGC 1783', ls='--')
+        plot(gal_line[6], gal_line[8], lw=0.7, label='Globular Cluster', ls='-.')
     
     if options.get('fix') == 'x':
         plot(gal_line[1], gal_line[2], lw=0.7, label='LMC', ls='--')
         plot(gal_line[4], gal_line[5], lw=0.7, label='SMC', ls='--')
-        plot(gal_line[7], gal_line[8], lw=0.7, label='globular cluster', ls='--')
+        plot(gal_line[7], gal_line[8], lw=0.7, label='Globular Cluster', ls='-.')
+    
