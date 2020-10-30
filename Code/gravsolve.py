@@ -38,18 +38,22 @@ if plot_data =='y':
         
     if use_all=='n': 
         plt.title('Ejected MSPs close encounters')
-        
+    
+    plt.legend(loc='lower right')
+    
     if fix == 'z':
         plt.xlabel(r"$x$ coordinate (kpc)")
         plt.ylabel(r"$y$ coordinate (kpc)")
+        plt.savefig("neutron_star_trajectories_xy", dpi=300)
         
     if fix == 'x':
         plt.xlabel(r"$y$ coordinate (kpc)")
         plt.ylabel(r"$z$ coordinate (kpc)")
+        plt.savefig("neutron_star_trajectories_yz", dpi=300)
         
     if fix == 'y':
         plt.xlabel(r"$x$ coordinate (kpc)")
         plt.ylabel(r"$z$ coordinate (kpc)")
-    plt.legend(loc='lower right')
-    plt.savefig("neutron_star_trajectories", dpi=300)
+        plt.savefig("neutron_star_trajectories_xz", dpi=300)
+    
     plt.show()
