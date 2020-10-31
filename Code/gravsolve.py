@@ -13,12 +13,8 @@ If a new set is generated, these files will be built automatically. \n \
 ------------------------------------------------------------')
 
 build_neut_set = input('generate a new set of neutron stars (y|n):')
-
-if build_neut_set == 'n':
-    print("Before proceeding, place the check.txt, gal_line.pickle and neut_stars_position.pkl files of the target simulation into the working director.")
-
 plot_data = input('plot data (y|n):')
-plot_encounters_hist = input('plot close encounters histogram (y|n):')
+plot_encounters_hist = input('calculate close encounters distance table (y|n):')
 
 if build_neut_set == 'y':
     pos = input('old or current position (old|current):')
@@ -76,10 +72,10 @@ if plot_data =='y':
 if plot_encounters_hist == 'y':
     
     check = open('check.txt', 'r')
-    final_coordlist = get_final_coord(check=check)
-    plot_hist(final_coordlist)
-    plt.xlabel('Galactocentric distance in (kpc)')
-    plt.ylabel('# of MSPs')
-    plt.title('Ejected MSPs close encounters histogram')
-    plt.savefig("encounters_hist", dpi=300)
-    plt.show()
+    get_final_coord(check=check)
+    
+    print(' ------------------------------------------------------------\
+------------------------------------------------------------ \n \
+distances.txt has been generated, containing the galactocentric distances of the neutron star set in kpc. \n \
+------------------------------------------------------------\
+------------------------------------------------------------')
