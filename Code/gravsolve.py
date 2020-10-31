@@ -1,5 +1,5 @@
 from evol import neut_gal_evol
-from plotters import plot_neut_pos, plot_mw_iso, plot_MC, plot_hist
+from plotters import plot_neut_pos, plot_mw_iso, plot_MC
 import matplotlib.pyplot as plt
 from coordinates import get_final_coord
 
