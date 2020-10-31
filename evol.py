@@ -31,10 +31,15 @@ def neut_gal_evol():
     N = neut_code.N
 
     L_neut = []
+    E = []
+   
     for i in range(N):
         MWG = MWpotentialBovy2015()
         LMC = LMC_pot()
         SMC = SMC_pot()
+        lmc_mass = 2e10 | units.MSun 
+        smc_mass = 6e9 | units.MSun
+        
         x_c, y_c, z_c = gal_code.ngc_1783_pos_init()
         vel_init = LMC.circular_velocity(x_c, y_c, z_c).in_(units.kms)
         print(vel_init)
@@ -53,8 +58,9 @@ def neut_gal_evol():
         
         converter_2 = nbody_system.nbody_to_si(neuts.mass.sum(),
                                               neuts.position.sum())
-
-
+        
+        En = []
+        
         from amuse.community.hermite.interface import Hermite
         
         # the code for the dynamic galactic potentials
@@ -85,18 +91,29 @@ def neut_gal_evol():
         gravity_2.add_system(gravity_code_2, (MWG, LMC, SMC, NGC_1783))
         gravity_2.timestep = dt | units.Myr
         
-        # Initial Energy
-        E_init = gravity_1_MC.kinetic_energy + gravity_1_MC.potential_energy +\
-                 gravity_2.kinetic_energy + gravity_2.potential_energy +\
-                 gravity_1_ngc.kinetic_energy + gravity_1_ngc.potential_energy        
-        E = []
-        
         times = np.arange(0., 500, dt) | units.Myr
         
         l_gal = gal_code.gal_path_init()
         l_neut = neut_code.neut_path_init()
         
+        E_init = gravity_1_MC.kinetic_energy.value_in(units.m**2 * units.s**-2 * units.kg) +\
+              lmc_mass.value_in(units.kg) *\
+              (MWG.get_potential_at_point(0,gal_MC[0].x, gal_MC[0].y, gal_MC[0].z).value_in(units.m**2 * units.s**-2)+\
+              SMC.get_potential_at_point(0,gal_MC[0].x, gal_MC[0].y, gal_MC[0].z).value_in(units.m**2 * units.s**-2)) +\
+              smc_mass.value_in(units.kg) *\
+              (MWG.get_potential_at_point(0,gal_MC[1].x, gal_MC[1].y, gal_MC[1].z).value_in(units.m**2 * units.s**-2)+\
+              LMC.get_potential_at_point(0,gal_MC[1].x, gal_MC[1].y, gal_MC[1].z).value_in(units.m**2 * units.s**-2))
+        
         for time in times:
+            
+            E_t = gravity_1_MC.kinetic_energy.value_in(units.m**2 * units.s**-2 * units.kg) +\
+              lmc_mass.value_in(units.kg) *\
+              (MWG.get_potential_at_point(0,gal_MC[0].x, gal_MC[0].y, gal_MC[0].z).value_in(units.m**2 * units.s**-2)+\
+              SMC.get_potential_at_point(0,gal_MC[0].x, gal_MC[0].y, gal_MC[0].z).value_in(units.m**2 * units.s**-2))+\
+              smc_mass.value_in(units.kg) *\
+              (MWG.get_potential_at_point(0,gal_MC[1].x, gal_MC[1].y, gal_MC[1].z).value_in(units.m**2 * units.s**-2)+\
+              LMC.get_potential_at_point(0,gal_MC[1].x, gal_MC[1].y, gal_MC[1].z).value_in(units.m**2 * units.s**-2))
+            En.append(E_t / E_init)
             
             LMC.d_update(gal_MC[0].x, gal_MC[0].y, gal_MC[0].z)
             SMC.d_update(gal_MC[1].x, gal_MC[1].y, gal_MC[1].z)
@@ -128,15 +145,9 @@ def neut_gal_evol():
             l_neut[0].append(neuts.x)
             l_neut[1].append(neuts.y)
             l_neut[2].append(neuts.z)
-            #
-            E_t = gravity_1_MC.kinetic_energy + gravity_1_MC.potential_energy +\
-                  gravity_1_ngc.kinetic_energy + gravity_1_ngc.potential_energy +\
-                  gravity_2.kinetic_energy + gravity_2.potential_energy
-            ratio = E_t/E_init
-            E.append(ratio)
-            #
+
         L_neut.append(l_neut)
-        
+        E.append(En)
     gravity_1_MC.stop()
     gravity_1_ngc.stop()
     gravity_2.stop()
