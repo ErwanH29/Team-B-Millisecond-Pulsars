@@ -6,6 +6,8 @@ from capture_check import capture_check
 
 X_gal, X_neut, N, E_ratio = neut_gal_evol()
 
+pyplot.figure(figsize=(15,5)) 
+pyplot.subplot(121)
 plot(X_gal[0], X_gal[1], lw=0.7, label='LMC')
 plot(X_gal[3], X_gal[4], lw=0.7, label='SMC')
 
@@ -37,5 +39,8 @@ for i in range(N):
 pyplot.legend()
 pyplot.xlabel(r"$x$ coordinate (kpc)")
 pyplot.ylabel(r"$y$ coordinate (kpc)")
+
+pyplot.subplot(122)
+pyplot.plot(E_ratio[0])
 pyplot.savefig("EvolutionSystem", dpi=300)
 pyplot.show()
