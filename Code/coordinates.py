@@ -5,6 +5,8 @@ from astropy.coordinates import SkyCoord
 import astropy.coordinates as coord
 import numpy as np
 from amuse.lab import units
+import ast
+import pandas as pd
 
 def conv_coord(right_ascension, declination, dist):
 
@@ -79,3 +81,23 @@ def capture_check(L_neut):
             check.append(i)
         
     return check
+
+def get_final_coord(check):
+    
+    data = pd.read_pickle('neut_stars_positions.pkl')
+    
+    final_coord = []
+    
+    check = check.read()
+    check = check.strip()
+    check = ast.literal_eval(check)
+    
+    last_col = data.iloc[:,-1]
+    
+    for c in check:
+        last_coord = last_col.iloc[c][0]
+        
+        final_coord.append(last_coord)
+        
+    return final_coord
+    
