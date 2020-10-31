@@ -78,7 +78,7 @@ def neut_gal_evol(**options):
     gravity_code_1_ngc.particles.add_particles(ngc_1783)
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
-    gravity_code_2 = Hermite(converter_2)
+    gravity_code_2 = Hermite(converter_2, number_of_workers=6)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
       
@@ -92,7 +92,7 @@ def neut_gal_evol(**options):
     
     gravity.timestep = dt | units.Myr
     
-    times = np.arange(0., 50, dt) | units.Myr
+    times = np.arange(0., 1000, dt) | units.Myr
     
     l_gal = gal_code.gal_path_init()
     
