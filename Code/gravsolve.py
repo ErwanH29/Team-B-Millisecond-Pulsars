@@ -13,6 +13,10 @@ If a new set is generated, these files will be built automatically. \n \
 ------------------------------------------------------------')
 
 build_neut_set = input('generate a new set of neutron stars (y|n):')
+
+if build_neut_set == 'n':
+    print("Before proceeding, place the check.txt, gal_line.pickle and neut_stars_position.pkl files of the target simulation into the working director.")
+
 plot_data = input('plot data (y|n):')
 plot_encounters_hist = input('plot close encounters histogram (y|n):')
 
