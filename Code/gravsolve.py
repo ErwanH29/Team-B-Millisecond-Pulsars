@@ -3,10 +3,14 @@ from plotters import plot_neut_pos, plot_mw_iso, plot_MC, plot_hist
 import matplotlib.pyplot as plt
 from coordinates import get_final_coord
 
-print('Neutron star launcher interface. Here, neutron star sets can be generated and plotted. Also, older sets can be plotted. \n \
+print('------------------------------------------------------------\
+------------------------------------------------------------ \n \
+Neutron star launcher interface. Here, neutron star sets can be generated and plotted. Also, older sets can be plotted. \n \
 If you want to plot older sets instead of generating a new one, make sure a "neut_stars_positions.pkl" \n \
 and its corresponding "check.txt" and "gal_line.pickle" are present in the current working directory. \n \
-If a new set is generated, these files will be built automatically.')
+If a new set is generated, these files will be built automatically. \n \
+------------------------------------------------------------\
+------------------------------------------------------------')
 
 build_neut_set = input('generate a new set of neutron stars (y|n):')
 plot_data = input('plot data (y|n):')
