@@ -3,7 +3,7 @@ from plotters import plot_neut_pos, plot_mw_iso, plot_MC, plot_hist
 import matplotlib.pyplot as plt
 from coordinates import get_final_coord
 
-print('------------------------------------------------------------\
+print(' ------------------------------------------------------------\
 ------------------------------------------------------------ \n \
 Neutron star launcher interface. Here, neutron star sets can be generated and plotted. Also, older sets can be plotted. \n \
 If you want to plot older sets instead of generating a new one, make sure a "neut_stars_positions.pkl" \n \
