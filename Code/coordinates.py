@@ -7,6 +7,7 @@ import numpy as np
 from amuse.lab import units
 import ast
 import pandas as pd
+import json
 
 def conv_coord(right_ascension, declination, dist):
 
@@ -85,9 +86,8 @@ def capture_check(L_neut):
 def get_final_coord(check):
     
     data = pd.read_pickle('neut_stars_positions.pkl')
-    
-    final_coord = []
-    
+
+    mag_tot = []
     check = check.read()
     check = check.strip()
     check = ast.literal_eval(check)
@@ -96,8 +96,9 @@ def get_final_coord(check):
     
     for c in check:
         last_coord = last_col.iloc[c][0]
-        
-        final_coord.append(last_coord)
-        
-    return final_coord
-    
+        mag = (last_coord[0]**2 + last_coord[1]**2 + last_coord[2]**2).sqrt()
+        mag = mag * (1 | units.kpc**-1)
+        mag_tot.append(mag)
+    f = open('distances.txt', 'w')
+    json.dump(mag_tot, f)
+    f.close()
