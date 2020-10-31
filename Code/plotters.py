@@ -172,3 +172,12 @@ def plot_MC(**options):
         plot(gal_line[4], gal_line[5], lw=0.7, label='SMC', ls='--')
         plot(gal_line[7], gal_line[8], lw=0.7, label='Globular Cluster', ls='-.')
     
+def plot_hist(final_coord):
+    mag_tot = []
+    for i in range(len(final_coord)):
+        mag = (final_coord[i][0]**2 + final_coord[i][1]**2 + final_coord[i][2]**2).sqrt()
+        mag = mag * (1 | units.kpc**-1)
+        mag_tot.append(mag)
+        
+    bins = 100
+    plt.hist(mag_tot, bins=bins)
