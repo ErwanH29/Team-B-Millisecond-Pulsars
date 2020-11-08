@@ -1,5 +1,3 @@
-# IMPORTANT: use heliocentric input units (degree, degree, kiloparsec)!!
-# Returns: galactocentric x, y and z distance in kiloparsec
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 import astropy.coordinates as coord
@@ -85,7 +83,7 @@ def capture_check(L_neut):
 
 def get_final_coord(check):
     
-    data = pd.read_pickle('neut_stars_positions.pkl')
+    data = pd.read_pickle('working_data/neut_stars_positions.pkl')
 
     mag_tot = []
     check = check.read()
@@ -99,6 +97,11 @@ def get_final_coord(check):
         mag = (last_coord[0]**2 + last_coord[1]**2 + last_coord[2]**2).sqrt()
         mag = mag * (1 | units.kpc**-1)
         mag_tot.append(mag)
-    f = open('distances.txt', 'w')
+    f = open('working_data/distances.txt', 'w')
     json.dump(mag_tot, f)
     f.close()
+    print(' ------------------------------------------------------------\
+------------------------------------------------------------ \n \
+distances.txt has been generated, containing the galactocentric distances of the close neutron stars in kpc. \n \
+------------------------------------------------------------\
+------------------------------------------------------------')
