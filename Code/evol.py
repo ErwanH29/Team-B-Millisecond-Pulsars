@@ -30,7 +30,7 @@ class drift_without_gravity(object):
     def stop(self):
         pass
 
-def neut_gal_evol(**options):
+def neut_gal_evol(number_of_workers, **options):
     neut_code = neut_initializer()
     gal_code = gal_initializer()
 
@@ -78,7 +78,7 @@ def neut_gal_evol(**options):
     gravity_code_1_ngc.particles.add_particles(ngc_1783)
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
-    gravity_code_2 = Hermite(converter_2, number_of_workers=6)
+    gravity_code_2 = Hermite(converter_2, number_of_workers=number_of_workers)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
       
@@ -128,13 +128,12 @@ def neut_gal_evol(**options):
         df_conc = pd.DataFrame()
         rows = len(neut_line.index)
         ch_g2l_2.copy()
-        if N >= 1:
-            for i in range(N):
+        for i in range(N):
                 
-                df = pd.Series({'{}'.format(time): [neuts[i].position]})
-                df_conc = df_conc.append(df, ignore_index=True) 
-            neut_line = neut_line.append(df_conc, ignore_index = True)
-            neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
+            df = pd.Series({'{}'.format(time): [neuts[i].position]})
+            df_conc = df_conc.append(df, ignore_index=True) 
+        neut_line = neut_line.append(df_conc, ignore_index = True)
+        neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
 
         #pplot(gal_MC, 0.05, 50, time, fix='y') # for plotting GIF files. WARNING: takes long!!
         if neut_code.decision(time)==True and time <= (1000 | units.Myr) :
@@ -146,11 +145,17 @@ def neut_gal_evol(**options):
     
     neut_line = neut_line.dropna(thresh=1)
     check = capture_check(neut_line)
-    f = open('check.txt', 'w')
+    f = open('working_data/check.txt', 'w')
     json.dump(check, f)
     f.close()
     
-    neut_line.to_pickle('neut_stars_positions.pkl')
+    t = open('working_data/total.txt', 'w')
+    json.dump(N-1, t)
+    t.close()
+
+    neut_line.to_pickle('working_data/neut_stars_positions.pkl')
     
-    with open('gal_line.pickle', 'wb') as f:
+    with open('working_data/gal_line.pickle', 'wb') as f:
         pickle.dump(l_gal, f)
+        
+    return neut_line
