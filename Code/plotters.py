@@ -154,7 +154,7 @@ def plot_mw_iso():
                                   fraction_screen_filled2 = 0.2, projection3D = False, number_of_contours = 15)
 
 def plot_MC(**options):
-    with open('gal_line.pickle', 'rb') as f:
+    with open('working_data/gal_line.pickle', 'rb') as f:
         gal_line = pickle.load(f)
         
     if options.get('fix') == 'z':
@@ -171,3 +171,24 @@ def plot_MC(**options):
         plot(gal_line[1], gal_line[2], lw=0.7, label='LMC', ls='--')
         plot(gal_line[4], gal_line[5], lw=0.7, label='SMC', ls='--')
         plot(gal_line[7], gal_line[8], lw=0.7, label='Globular Cluster', ls='-.')
+
+def plot_hist(pos, width, n_sim):
+    pos = pos.read()
+    pos = pos.strip()
+    pos = ast.literal_eval(pos)
+    pos = np.array(pos)
+    pos.T
+    plot_range = 40
+    bins = plot_range / width
+    plt.hist(pos, bins=int(bins), range=(0,40), density=True)
+    plt.xlabel('final position [kpc]')
+    plt.ylabel('probability')
+    plt.title('final position probability for {} simulations'.format(n_sim))
+    plt.savefig('final_pos_prob_{}sims'.format(n_sim), dpi=300)
+    plt.show()
+    
+        
+        
+        
+        
+        

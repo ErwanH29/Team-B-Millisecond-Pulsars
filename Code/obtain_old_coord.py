@@ -6,27 +6,6 @@ from amuse.couple import bridge
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
 from galpot_init import LMC_pot, SMC_pot
 
-# dont forget to reverse LMC and SMC velocity sign before running
-
-class drift_without_gravity(object):
-    def __init__(self, convert_nbody, time= 0 |units.Myr):
-        self.model_time = time
-        self.convert_nbody = convert_nbody
-        self.particles = Particles()
-    def evolve_model(self, t_end):
-        dt = t_end - self.model_time
-        self.particles.position += self.particles.velocity*dt
-        self.model_time = t_end
-    @property
-    def potential_energy(self):
-        return quantities.zero
-    @property 
-    def kinetic_energy(self):
-        return (0.5*self.particles.mass \
-                   *self.particles.velocity.lengths()**2).sum()
-    def stop(self):
-        pass
-
 gal_code = gal_initializer()
 LMC = LMC_pot()
 SMC = SMC_pot()
@@ -37,19 +16,22 @@ gal_MC, ngc_1783 = gal_code.gal_tracer(vel_init)
 ngc_1783.velocity += gal_MC[0].velocity
 ngc_1783.position += gal_MC[0].position
 
+ngc_1783.velocity *= -1
+gal_MC[0].velocity *= -1
+gal_MC[1].velocity *= -1
+
 converter_1_MC = nbody_system.nbody_to_si(gal_MC.mass.sum(),
                                          gal_MC.position.sum())
 
 converter_1_ngc = nbody_system.nbody_to_si(ngc_1783.mass.sum(),
                                          ngc_1783.position.sum())
-from amuse.community.hermite.interface import Hermite
-    
-# the code for the dynamic galactic potentials
-gravity_code_1_MC = Hermite(converter_1_MC)
+from amuse.community.phigrape.interface import PhiGRAPEInterface, PhiGRAPE
+
+gravity_code_1_MC = PhiGRAPE(converter_1_MC, MODE_GPU='gpu')
 gravity_code_1_MC.particles.add_particles(gal_MC)
 ch_g2l_1_MC = gravity_code_1_MC.particles.new_channel_to(gal_MC)
 
-gravity_code_1_ngc = drift_without_gravity(converter_1_ngc)
+gravity_code_1_ngc = PhiGRAPE(converter_1_ngc, MODE_GPU='gpu')
 gravity_code_1_ngc.particles.add_particles(ngc_1783)
 ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
 
@@ -66,6 +48,7 @@ gravity_1_ngc.timestep = dt | units.Myr
 times = np.arange(0., 1000, dt) | units.Myr
 
 for time in times:
+    print(time)
     LMC.d_update(gal_MC[0].x, gal_MC[0].y, gal_MC[0].z)
     SMC.d_update(gal_MC[1].x, gal_MC[1].y, gal_MC[1].z)
     gravity_1_MC.evolve_model(time)

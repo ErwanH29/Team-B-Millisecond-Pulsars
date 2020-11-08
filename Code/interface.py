@@ -1,5 +1,5 @@
 from evol import neut_gal_evol
-from plotters import plot_neut_pos, plot_mw_iso, plot_MC
+from plotters import plot_neut_pos, plot_mw_iso, plot_MC, plot_hist
 import matplotlib.pyplot as plt
 from coordinates import get_final_coord
 from file_logistics import fileworker
@@ -10,7 +10,7 @@ Neutron star launcher interface. Here, neutron star sets can be generated and pl
 If you want to plot older sets instead of generating a new one, just load old simulation data using this interface. \n \
 If a new set is generated, these files will be built automatically and placed in working_data. \n \
 After generating, you can save the files. This moves the files into a default (or user defined) folder. \n \
-Aside from plotting, more data functionalities are present. \n \
+Aside from plotting, one can also generate statistical info for all saved datasets. \n \
 If one would like to change the path to the simulation folders, change "default_path=False" in fileworker inputs. \n \
 ------------------------------------------------------------\
 ------------------------------------------------------------')
@@ -104,7 +104,17 @@ get_statistics = input('get close encounter statistics. note: only takes the sim
 in the "sim_results" folder into account. (y|n):')
 
 if get_statistics == 'y':
-    fl.get_enc_rate()
+    n_sim = fl.get_enc_rate()
+    
+    get_hist = input('generate final position histogram for the set of simulations (y|n):')
+    if get_hist == 'y':
+        pos = open('statistics/position_distribution_{}sims.txt'.format(n_sim), 'r')   
+        plot_hist(pos=pos, width=1, n_sim=n_sim)
+        print(' ------------------------------------------------------------\
+------------------------------------------------------------ \n \
+a figure "final_pos_prob_{}sims.png" has been generated. \n \
+------------------------------------------------------------\
+------------------------------------------------------------'.format(n_sim))
     
 clear_working = input('clear working_data directory. WARNING: make sure the data in \n \
 "working_data" is a copy of simulated and stored data or make sure the data is saved! (y|n):')

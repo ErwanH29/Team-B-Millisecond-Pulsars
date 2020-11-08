@@ -10,7 +10,7 @@ class neut_initializer(object):
     
     def __init__(self):
         self.N = 0
-        self.dataVels = np.loadtxt("Data/VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
+        self.dataVels = np.loadtxt("VELOCITIESPulsarsDataATNF(2019-04-24).txt", 
                                    comments="#", usecols=(3, 6, -1))
     
     def N_count(self):
@@ -105,3 +105,4 @@ class gal_initializer(object):
         y_ngc_1783 = [] | units.kpc
         z_ngc_1783 = [] | units.kpc
         return x_lmc, y_lmc, z_lmc, x_smc, y_smc, z_smc, x_ngc_1783, y_ngc_1783, z_ngc_1783
+
