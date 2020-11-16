@@ -18,6 +18,9 @@ If one would like to change the path to the simulation folders, change "default_
 fl = fileworker(default_path=True)
 number_of_workers = 6 # enter an appropriate value for your system
 
+endtime = 1000 # endtime of simulation in Megayears
+step = 1 # simulation timestep in Megayears
+
 build_neut_set = input('generate a new set of neutron stars (y|n):')
 
 if build_neut_set == 'n':
@@ -32,7 +35,7 @@ calc_encounters_dist = input('calculate close encounters distance table (y|n):')
 if build_neut_set == 'y':
     pos = input('old or current position (old|current):')
     save_data = input('save generated data (y|n):')   
-    neut_line = neut_gal_evol(number_of_workers=number_of_workers, old_pos=pos)
+    neut_line = neut_gal_evol(number_of_workers=number_of_workers, endtime=endtime, step=step, old_pos=pos)
       
 if plot_data =='y':
     fix = input('fix axis (x|y|z):')

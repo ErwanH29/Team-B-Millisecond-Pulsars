@@ -30,7 +30,7 @@ class drift_without_gravity(object):
     def stop(self):
         pass
 
-def neut_gal_evol(number_of_workers, **options):
+def neut_gal_evol(number_of_workers, endtime, step, **options):
     neut_code = neut_initializer()
     gal_code = gal_initializer()
 
@@ -81,8 +81,6 @@ def neut_gal_evol(number_of_workers, **options):
     gravity_code_2 = Hermite(converter_2, number_of_workers=number_of_workers)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
-      
-    dt = 1 #Define timestep in Myr
     
     gravity = bridge.Bridge()
     
@@ -90,9 +88,9 @@ def neut_gal_evol(number_of_workers, **options):
     gravity.add_system(gravity_code_1_ngc, (MWG, LMC, SMC))
     gravity.add_system(gravity_code_2, (MWG, LMC, SMC, NGC_1783))
     
-    gravity.timestep = dt | units.Myr
+    gravity.timestep = step | units.Myr
     
-    times = np.arange(0., 1000, dt) | units.Myr
+    times = np.arange(0., endtime, step) | units.Myr
     
     l_gal = gal_code.gal_path_init()
     
