@@ -143,6 +143,11 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
     
     neut_line = neut_line.dropna(thresh=1)
     check = capture_check(neut_line)
+    
+    v_end = neuts[check].velocity
+    with open('working_data/final_check_velocity.pickle', 'wb') as v:
+        pickle.dump(v_end, v)
+    
     f = open('working_data/check.txt', 'w')
     json.dump(check, f)
     f.close()
