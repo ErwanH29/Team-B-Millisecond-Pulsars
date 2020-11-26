@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy import units as u
-from astropy.coordinates import SkyCoord
-import astropy.coordinates as coord
 
 def ProbFuncReal(vel):
     meanV = 250 ; sigmaV = 190
@@ -14,21 +12,11 @@ print(data)
 x = np.linspace(0, max(data), len(data))
 v = np.linspace(0,1200,4000)
 dx = 1200/4000
-vel = ProbFuncReal(v)/np.sum(ProbFuncReal(v))
-
-cdfvel = np.cumsum(ProbFuncReal(v) * dx)/np.sum(np.cumsum(ProbFuncReal(v)))*15
-
-plt.title(r"Normalised Probability Distribution of Ejected Velocities $(v_{ej})$")
-plt.xlabel(r"Velocity ($km s^{-1}$) ")
-plt.ylabel(r"Probability")
-plt.plot(v, vel, label = 'Population')
-plt.plot(v, cdfvel, 'r--', label ='CDF')
-plt.legend()
-plt.savefig("CDFPDFVelocities.png")
-plt.show()
+vel = ProbFuncReal(v)/np.sum(ProbFuncReal(v)) * 0.0035/0.0012
 
 plt.title("Histogram of Millisecond Pulsar Velocities as Observed by the ATNF")
-n, bins, patches = plt.hist(data, 120, color = 'black', histtype='step')
+n, bins, patches = plt.hist(data, 120, color = 'black', density=True, histtype='step')
+plt.plot(v, vel, label = 'Population')
 plt.xlim(np.min(data),1300)
 plt.xlabel(r"Velocity ($km s^{-1}$) ")
 plt.savefig("Histogram", dpi = 300)
@@ -44,7 +32,6 @@ plt.xlim(np.min(distancemod),35)
 plt.xlabel(r"Distance (kpc) ")
 plt.savefig("HistogramDistance", dpi = 300)
 plt.show()
-
 
 beyondMW = [i for i in distancemod if i>15]
 
