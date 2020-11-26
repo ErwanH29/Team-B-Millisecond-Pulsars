@@ -180,9 +180,9 @@ def plot_hist(pos, width, n_sim):
     pos.T
     plot_range = 40
     bins = plot_range / width
-    plt.hist(pos, bins=int(bins), range=(0,40), density=True)
-    plt.xlabel('final position [kpc]')
-    plt.ylabel('probability')
+    plt.hist(pos, bins=int(bins), range=(0,40), density=True, color = 'black', histtype='step')
+    plt.xlabel('Final Position [kpc]')
+    plt.ylabel('Probability')
     plt.title('final position probability for {} simulations'.format(n_sim))
     plt.savefig('final_pos_prob_{}sims'.format(n_sim), dpi=300)
     plt.show()

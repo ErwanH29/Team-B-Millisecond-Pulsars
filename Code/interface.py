@@ -66,7 +66,7 @@ if plot_data =='y':
         plt.title('Ejected MSPs from LMC')
         
     if use_all=='n': 
-        plt.title('Ejected MSPs close encounters')
+        plt.title('Close Encounter Millisecond Pulsars')
        
     if fix == 'z':
         plane = 'xy'
