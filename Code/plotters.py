@@ -186,6 +186,7 @@ def plot_hist(pos, width, n_sim):
     plt.title('final position probability for {} simulations'.format(n_sim))
     plt.savefig('final_pos_prob_{}sims'.format(n_sim), dpi=300)
     plt.show()
+    return pos
     
         
         
