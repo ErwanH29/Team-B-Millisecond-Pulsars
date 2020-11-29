@@ -3,6 +3,8 @@ from plotters import plot_neut_pos, plot_mw_iso, plot_MC, plot_hist
 import matplotlib.pyplot as plt
 from coordinates import get_final_coord
 from file_logistics import fileworker
+from bias import get_xi2
+import numpy as np
 
 print(' ------------------------------------------------------------\
 ------------------------------------------------------------ \n \
@@ -18,9 +20,6 @@ If one would like to change the path to the simulation folders, change "default_
 fl = fileworker(default_path=True)
 number_of_workers = 6 # enter an appropriate value for your system
 
-endtime = 1000 # endtime of simulation in Megayears
-step = 1 # simulation timestep in Megayears
-
 build_neut_set = input('generate a new set of neutron stars (y|n):')
 
 if build_neut_set == 'n':
@@ -35,7 +34,7 @@ calc_encounters_dist = input('calculate close encounters distance table (y|n):')
 if build_neut_set == 'y':
     pos = input('old or current position (old|current):')
     save_data = input('save generated data (y|n):')   
-    neut_line = neut_gal_evol(number_of_workers=number_of_workers, endtime=endtime, step=step, old_pos=pos)
+    neut_line = neut_gal_evol(number_of_workers=number_of_workers, old_pos=pos)
       
 if plot_data =='y':
     fix = input('fix axis (x|y|z):')
@@ -66,7 +65,7 @@ if plot_data =='y':
         plt.title('Ejected MSPs from LMC')
         
     if use_all=='n': 
-        plt.title('Close Encounter Millisecond Pulsars')
+        plt.title('Ejected MSPs close encounters')
        
     if fix == 'z':
         plane = 'xy'
@@ -112,13 +111,21 @@ if get_statistics == 'y':
     get_hist = input('generate final position histogram for the set of simulations (y|n):')
     if get_hist == 'y':
         pos = open('statistics/position_distribution_{}sims.txt'.format(n_sim), 'r')   
-        plot_hist(pos=pos, width=1, n_sim=n_sim)
+        data = plot_hist(pos=pos, width=1, n_sim=n_sim)
         print(' ------------------------------------------------------------\
 ------------------------------------------------------------ \n \
 a figure "final_pos_prob_{}sims.png" has been generated. \n \
+ ------------------------------------------------------------\
+------------------------------------------------------------ '.format(n_sim))
+        min_value, unbiased = get_xi2(data, 100)
+        print('\
+ unbiased estimator(xi^2 reach minimum): {} \n\
+ mean value: {} \n\
+ median value: {} \n\
+ xi^2: {}\n \
 ------------------------------------------------------------\
-------------------------------------------------------------'.format(n_sim))
-    
+------------------------------------------------------------'.format(unbiased, np.mean(data), np.median(data), min_value))
+        
 clear_working = input('clear working_data directory. WARNING: make sure the data in \n \
 "working_data" is a copy of simulated and stored data or make sure the data is saved! (y|n):')
 
