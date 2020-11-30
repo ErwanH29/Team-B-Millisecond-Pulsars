@@ -13,7 +13,7 @@
 
 **file_logistics.py**:
 
-* 
+* This script handles files in order to use the full script. It takes care of saving simulation results and transfers them to appropriate folders.
 
 **galpot_init.py**:
 
@@ -21,7 +21,7 @@
 
 **obtain_old_coord.py**:
 
-* 
+* This script evolves the LMC and SMC back in time, inside their mutual interaction and the Milky Way background potential, to obtain the coordinates 1 Gyr back in time.
 
 **particle_init.py**:
 
@@ -31,4 +31,4 @@ center of masses as particles
 
 **plotters.py**:
 
-*
+* This script contains all the functions that plot something with the simulation data.
