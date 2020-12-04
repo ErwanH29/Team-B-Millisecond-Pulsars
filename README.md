@@ -2,9 +2,11 @@
 
 This GitHub incorporates the code utilising AMUSE which analyses the possibility of millisecond pulsars shot out from the Large Magellanic Cloud being captured inside the Milky Way.
 
-The Data directory shows the main references used in the project, observations of existing pulsars as well as small test scripts used to manipulate such data and the other repository is the code the research is based off of.
+The foundation of the project is found in the Code directory which includes all the necessary scripts needed to run the simulation in which we gathered results from.
 
-The project proposal gives a good introduction on the aims of our research and how we intend to achieve it and lies with the final report in the directory Documents.
+The Data directory is for extraction of information on current observations of existing pulsars including the small scripts used to manipulate the information
+
+The project proposal gives a good introduction on the aims of our research and how we intend to achieve it and lies with the final report in the directory Documents. Furthermore the final report as well as some key figures can be found in this directory.
 
 ![](https://i.imgur.com/LuFyQi8.png)
 
