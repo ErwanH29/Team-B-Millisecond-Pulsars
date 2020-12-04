@@ -3,6 +3,8 @@ The positions of the Large and Small Magellanic cloud are first calculated 1 Gyr
 Upon running, pulsars will be generated along the trajectory of the globular cluster, which in itself is moving inside the Large Magellanic Cloud potential, which in itself feels the Milky Way potential.
 After running, data can be generated from the simulation.
 
+A simulation can be started simpy by running interface.py from your favourite python IDE. the script will then ask what you want to do (ranging from running a new simulation to plotting older data). For proper execution, the number_of_workers variable in interface.py should not exceed the amount of CPU cores present on your system.
+
 ![](https://i.imgur.com/LuFyQi8.png)
 
 For visualization of the code, these three GIF files illustrate the dynamics of the Large and Small Magellanic Cloud potentials in the Milky Way potential over a time of 270 million years, starting at present time, as calculated by our code. The imaged planes are (x,y), (x,z) and (y,z) respectively.
