@@ -1,0 +1,5 @@
+# exclude everything
+Code/working_data/*
+
+# exception to the rule
+!Code/working_data/.gitkeep 
