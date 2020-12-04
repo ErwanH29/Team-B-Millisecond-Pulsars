@@ -31,7 +31,7 @@
 
 **interface.py**:
 
-*
+* Upon running this script, a simulation can be started.
 
 
 **obtain_old_coord.py**:
