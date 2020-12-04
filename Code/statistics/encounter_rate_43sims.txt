@@ -1,0 +1,1 @@
+"mean close encounter rate = 0.007734870585722797 and standard deviation = 0.003449604158118502 for 43 simulations. Mean amount of neutron stars formed = 550.8604651162791 and standard deviation = 17.93052916031739"

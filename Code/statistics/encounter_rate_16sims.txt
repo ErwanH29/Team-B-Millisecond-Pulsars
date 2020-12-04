@@ -1,0 +1,1 @@
+"mean close encounter rate = 0.008352586993456007 and standard deviation = 0.0026074525733022227 for 16 simulations"
