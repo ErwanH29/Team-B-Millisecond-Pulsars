@@ -1,10 +1,20 @@
 ## This directory incorporates the code that the simulation is based off
 
+
+**bias.py**:
+
+*
+
+
 **coordinates.py**: 
 
 * This script converts the coordinates of the galactic systems (the LMC, SMC and Milky Way) from equatorial coordinate systems to cartesian coordinates which is done under the function conv_coord. This is done with the help of astropy which also allows a conversion of the frames from a helicoentric frame to a galactocentric one providing not only the right spatial coordinates, but velocity coordinates as well.
 * The function conv_coordPulsars changes the reference frames of the millisecond pulsars from a heliocentric one into a galactocentric one. 
 * The function get_final_coord calculates the final distances of the ejected pulsars to the center of the Milky Way which is used for data manipulation.
+
+**energy_conservation.py**:
+
+*
 
 **evol.py**:
 
@@ -17,7 +27,12 @@
 
 **galpot_init.py**:
 
-- This script defines the LMC and SMC potentials. For each timestep defined in evol.py, the potentials of both galaxies are re-calculated at the new positions.
+* This script defines the LMC and SMC potentials. For each timestep defined in evol.py, the potentials of both galaxies are re-calculated at the new positions.
+
+**interface.py**:
+
+*
+
 
 **obtain_old_coord.py**:
 
