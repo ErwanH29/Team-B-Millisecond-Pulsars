@@ -3,7 +3,7 @@
 
 **bias.py**:
 
-*
+* This script returns the minimum variance unbiased estimator of the distribution of MSP distances to the galactic centre and the value of minimum variance. The variance can describe the bias of the distribution.
 
 
 **coordinates.py**: 
@@ -14,7 +14,7 @@
 
 **energy_conservation.py**:
 
-*
+* This script describes the total energy (potential energy + kinetic energy) of the MCs-MW system in the evolution process.
 
 **evol.py**:
 
