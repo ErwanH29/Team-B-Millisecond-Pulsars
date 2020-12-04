@@ -13,11 +13,3 @@ For visualization of the code, these three GIF files illustrate the dynamics of 
 ![](https://github.com/ErwanH29/Team-B-Millisecond-Pulsars/blob/master/xy_0_300%25_3f.gif) 
 ![](https://github.com/ErwanH29/Team-B-Millisecond-Pulsars/blob/master/xz_0_300%25_3f.gif)
 ![](https://github.com/ErwanH29/Team-B-Millisecond-Pulsars/blob/master/yz_0_300%25_3f.gif)
-
---------------------------------------------------------------
-
-**gravsolve.py**
-- This script runs the codes and plots the output. Currently, the output comprises the LMC and SMC center of mass trajectories, the MSP trajectory and the Milky Way isopotential. 
-
-- The isopotential is only plottable in (x,y). The rest in any combination of two coordinates. The LMC and SMC center of mass particles interact and both feel the Milky Way background potential. The motion of the MSP is tracked using the reference frame of the Milky Way and depends on the updating LMC and SMC trajectories
-
