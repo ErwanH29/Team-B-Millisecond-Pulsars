@@ -1,9 +1,9 @@
 The code contained in this repository simulates a system consisting of the Large and Small Magellanic Clouds, a globular cluster and the Milky Way.
 The positions of the Large and Small Magellanic cloud are first calculated 1 Gyr back in time using current position and velocity coordinates.
-Upon running, pulsars will be generated along the trajectory of the globular cluster, which in itself is moving inside the Large Magellanic Cloud potential, which in itself feels the Milky Way potential.
+Upon running, pulsars will be generated along the trajectory of the globular cluster, who is simultaneously affected by the Large Magellanic Cloud potential, which in itself is bridged with the Milky Way potential giving for a more realistic model of the galactic neighborhood.
 After running, data can be generated from the simulation.
 
-A simulation can be started simpy by running interface.py from your favourite python IDE. the script will then ask what you want to do (ranging from running a new simulation to plotting older data). For proper execution, the number_of_workers variable in interface.py should not exceed the amount of CPU cores present on your system.
+A simulation can be started by running interface.py from your favourite python IDE. the script will ask what you want to do (ranging from running a new simulation to plotting older data). For proper execution, the number_of_workers variable in interface.py should not exceed the amount of CPU cores present on your system.
 
 ![](https://i.imgur.com/LuFyQi8.png)
 
