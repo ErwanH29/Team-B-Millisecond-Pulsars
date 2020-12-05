@@ -40,7 +40,7 @@
 
 **particle_init.py**:
 
-* This script initialises the N amount of milisecond pulsars we aim to shoot. It has the initial mass, velocity and coordinates of the stars based on various - --models.
+* This script initialises the N amount of milisecond pulsars we aim to shoot. It has the initial mass, velocity and coordinates of the stars based on various models which are detailed in the final report (found under the /Documents directory).
 * It also traces the path of the LMC and SMC center of mass such that we can track them as their positions evolve over time. This is done by representing the
 center of masses as particles
 
