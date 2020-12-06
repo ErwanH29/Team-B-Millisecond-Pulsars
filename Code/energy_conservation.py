@@ -134,8 +134,10 @@ X_gal, E_ratio = neut_gal_evol()
 pyplot.figure(figsize=(15,5)) 
 pyplot.subplot(121)
 pyplot.title('Trajectory of MCs')
-plot(X_gal[0], X_gal[1], lw=1.7, label='LMC')
-plot(X_gal[3], X_gal[4], lw=1.7, label='SMC')
+plot(X_gal[0][0:126], X_gal[1][0:126], lw=1.7, label='LMC_BEFORE')
+plot(X_gal[0][126:1000], X_gal[1][126:1000], lw=1.7, label='LMC_AFTER')
+plot(X_gal[3][0:126], X_gal[4][0:126], lw=1.7, label='SMC_BEFORE')
+plot(X_gal[3][126:1000], X_gal[4][126:1000], lw=1.7, label='SMC_AFTER')
 
 # plot the isocontour 
 from amuse.ext.galactic_potentials import MWpotentialBovy2015
