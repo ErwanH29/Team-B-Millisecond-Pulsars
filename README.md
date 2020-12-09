@@ -5,6 +5,12 @@ After running, data can be generated from the simulation.
 
 A simulation can be started by running interface.py from your favourite python IDE. the script will ask what you want to do (ranging from running a new simulation to plotting older data). For proper execution, the number_of_workers variable in interface.py should not exceed the amount of CPU cores present on your system.
 
+The directory \Code encompasses both the code the simulation is built from as well as the data obtained from running the simulations.
+
+\Data has a few basic scripts which extracts information from real life observations on millisecond pulsars gathered by ATNF.
+
+The final report of the simulation can be found under the \Documents directory.
+
 ![](https://i.imgur.com/LuFyQi8.png)
 
 For visualization of the code, these three GIF files illustrate the dynamics of the Large and Small Magellanic Cloud potentials in the Milky Way potential over a time of 270 million years, starting at present time, as calculated by our code. The imaged planes are (x,y), (x,z) and (y,z) respectively.
