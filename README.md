@@ -5,11 +5,11 @@ After running, data can be generated from the simulation.
 
 A simulation can be started by running interface.py from your favourite python IDE. the script will ask what you want to do (ranging from running a new simulation to plotting older data). For proper execution, the number_of_workers variable in interface.py should not exceed the amount of CPU cores present on your system.
 
-The directory \Code encompasses both the code the simulation is built from as well as the data obtained from running the simulations.
+* \Code encompasses both the code the simulation is built from as well as the data obtained from running the simulations.
 
-\Data has a few basic scripts which extracts information from real life observations on millisecond pulsars gathered by ATNF.
+* \Data has a script which extracts information from real life observations on millisecond pulsars gathered by ATNF. The data files used are also located in this directory.
 
-The final report of the simulation can be found under the \Documents directory.
+* The final report of the simulation can be found under the \Documents directory.
 
 ![](https://i.imgur.com/LuFyQi8.png)
 
