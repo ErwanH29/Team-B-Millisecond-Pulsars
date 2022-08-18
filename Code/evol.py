@@ -30,13 +30,14 @@ class drift_without_gravity(object):
     def stop(self):
         pass
 
-def neut_gal_evol(number_of_workers, endtime, step, **options):
+def neut_gal_evol(number_of_workers, endtime=20, step=0.01, **options):
     neut_code = neut_initializer()
     gal_code = gal_initializer()
 
     old_coord = old_coordlist()
 
     MWG = MWpotentialBovy2015()
+
     LMC = LMC_pot()
     SMC = SMC_pot()
     NGC_1783 = ngc_1783_pot()
@@ -70,7 +71,7 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
     converter_2 = nbody_system.nbody_to_si(neuts.mass.sum(),
                                            neuts.position.sum())
 
-    gravity_code_1_MC = Hermite(converter_1_MC)
+    gravity_code_1_MC = drift_without_gravity(converter_1_MC)
     gravity_code_1_MC.particles.add_particles(gal_MC)
     ch_g2l_1_MC = gravity_code_1_MC.particles.new_channel_to(gal_MC)
     
@@ -78,7 +79,7 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
     gravity_code_1_ngc.particles.add_particles(ngc_1783)
     ch_g2l_1_ngc = gravity_code_1_ngc.particles.new_channel_to(ngc_1783)
     
-    gravity_code_2 = Hermite(converter_2, number_of_workers=number_of_workers)
+    gravity_code_2 = drift_without_gravity(converter_2)#, number_of_workers=number_of_workers)
     gravity_code_2.particles.add_particles(neuts)
     ch_g2l_2 = gravity_code_2.particles.new_channel_to(neuts)
     
@@ -95,11 +96,17 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
     l_gal = gal_code.gal_path_init()
     
     neut_line = pd.DataFrame()
+    
+    r_MW = 30e3 | units.pc
+    
+    N_sim = 0 # Nr of MSP considered in simulation
+    N_total = 0 # Total generated MSP
 
     for time in times:
         
         print(time)
-        N = neut_code.N_count()
+        N_total = neut_code.N_count()
+        
         
         LMC.d_update(gal_MC[0].x, gal_MC[0].y, gal_MC[0].z)
         SMC.d_update(gal_MC[1].x, gal_MC[1].y, gal_MC[1].z)
@@ -126,22 +133,38 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
         df_conc = pd.DataFrame()
         rows = len(neut_line.index)
         ch_g2l_2.copy()
-        for i in range(N):
-                
-            df = pd.Series({'{}'.format(time): [neuts[i].position]})
-            df_conc = df_conc.append(df, ignore_index=True) 
-        neut_line = neut_line.append(df_conc, ignore_index = True)
-        neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
 
         #pplot(gal_MC, 0.05, 50, time, fix='y') # for plotting GIF files. WARNING: takes long!!
         if neut_code.decision(time)==True and time <= (1000 | units.Myr) :
             add_n = neut_code.add_neut(ngc_1783.position, ngc_1783.velocity)
-            neuts.add_particle(add_n) 
-            gravity_code_2.particles.add_particles(add_n)
+            
+            # Now, calculate whether to keep the new MSP in simulation or not.
+            # If MSP misses MW, do not add to simulation but do increment total MSP count
+            #print(add_n.position[0])
+            _d = np.sqrt(np.dot(add_n.position[0], add_n.position[0])) # Calculate total distance from MW center
+            
+            _v = np.sqrt(np.dot(add_n.velocity[0], add_n.velocity[0])) # Calculate total speed w.r.t MW center frame
+            
+            val = abs(np.dot(add_n.position[0], add_n.velocity[0])) / (_d * _v)
+            theta_MW = np.arccos(val)
+            
+            if np.tan(theta_MW) < r_MW/_d:
+                N_sim += 1
+                neuts.add_particle(add_n) 
+                gravity_code_2.particles.add_particles(add_n)
 
+        for i in range(N_sim):
+            df = pd.Series({'{}'.format(time): [neuts[i].position]})
+            df_conc = df_conc.append(df, ignore_index=True) 
+
+        if not df_conc.empty:
+            neut_line = neut_line.append(df_conc, ignore_index = True)
+            neut_line['{}'.format(time)] = neut_line['{}'.format(time)].shift(-rows)
+                
     gravity.stop()
     
     neut_line = neut_line.dropna(thresh=1)
+    print(neut_line)
     check = capture_check(neut_line)
     
     v_end = neuts[check].velocity
@@ -153,7 +176,7 @@ def neut_gal_evol(number_of_workers, endtime, step, **options):
     f.close()
     
     t = open('working_data/total.txt', 'w')
-    json.dump(N-1, t)
+    json.dump(N_sim-1, t)
     t.close()
 
     neut_line.to_pickle('working_data/neut_stars_positions.pkl')
